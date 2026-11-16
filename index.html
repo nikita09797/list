@@ -28,7 +28,6 @@
     --anim-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* ===== ТЕМЫ ОФОРМЛЕНИЯ ===== */
   body.theme-newyear { --bg-body: #0b1a2a; --panel-bg: #14283e; --panel-text: #e8f4ff; --panel-border: #264060; --input-bg: #1a3350; --accent: #ffffff; --accent-text: #0b1a2a; --menu-border: #264060; --menu-hover: #1e3a58; --menu-overlay: rgba(0,0,0,0.6); --shadow: 0 8px 24px rgba(0,0,0,0.4); }
   body.theme-newyear .receipt { background: #f8fbff; box-shadow: 0 10px 40px rgba(100,180,255,0.3); }
   body.theme-newyear .receipt::after { background-image: radial-gradient(circle at 8px 0, transparent 8px, #f8fbff 9px); }
@@ -87,6 +86,7 @@
   .receipt-header p { font-size: 13px; color: #666; font-weight: 600; }
 
   .receipt-footer-text { font-size: 11px; color: #999; text-align: center; font-family: var(--font-receipt); margin-top: 20px; padding-top: 10px; border-top: 1px solid #eee; }
+  .receipt-app-brand { text-align: center; font-size: 12px; font-weight: 700; color: #666; margin-top: 10px; font-family: var(--font-ui); letter-spacing: 0.5px; }
   .catalog-wrapper { display: block; animation: fadeIn var(--anim-fast); }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -126,8 +126,24 @@
     transform: scale(1.05);
   }
   .category-btn svg { width: 22px; height: 22px; fill: currentColor; }
+  .category-btn.top-btn { font-size: 20px; }
 
-  .catalog { max-height: 220px; overflow-y: auto; border: 1px solid var(--panel-border); border-radius: 8px; background: var(--panel-bg); }
+  .top-actions { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+  .top-action-btn {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    width: 100%; padding: 9px 12px;
+    background: var(--input-bg); border: 1px solid var(--panel-border); border-radius: 8px;
+    font-size: 12px; font-weight: 700; cursor: pointer; color: var(--panel-text);
+    transition: background var(--anim-fast);
+  }
+  .top-action-btn:hover { background: var(--menu-hover); }
+  .top-action-btn svg { width: 16px; height: 16px; fill: currentColor; transition: transform 0.2s ease; }
+  .top-action-btn.collapsed svg.chevron { transform: rotate(-90deg); }
+  .share-action-btn { background: #1976d2; color: #fff; border-color: #1976d2; }
+  .share-action-btn:hover { background: #1565c0; }
+
+  .catalog { max-height: 220px; overflow-y: auto; border: 1px solid var(--panel-border); border-radius: 8px; background: var(--panel-bg); transition: max-height var(--anim-normal), opacity var(--anim-normal), margin var(--anim-normal), padding var(--anim-normal), border var(--anim-normal); }
+  .catalog.collapsed { max-height: 0; opacity: 0; margin: 0; padding: 0; border-width: 0; overflow: hidden; }
   .catalog-item {
     padding: 12px 14px; border-bottom: 1px solid var(--panel-border); display: flex; justify-content: space-between;
     cursor: pointer; font-size: 14px; color: var(--panel-text); gap: 8px; transition: background var(--anim-fast);
@@ -138,6 +154,11 @@
   .catalog-name { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   .catalog-details { font-size: 11px; color: #888; font-style: italic; }
   .catalog-empty { padding: 20px; text-align: center; color: #666; font-size: 13px; }
+
+  .badge-18 {
+    display: inline-block; padding: 1px 5px; background: #c62828; color: #fff;
+    font-size: 10px; font-weight: 800; border-radius: 4px; line-height: 1.3; vertical-align: middle;
+  }
 
   .manual-input { display: none; flex-direction: column; gap: 12px; background: var(--panel-bg); border: 1px solid var(--panel-border); padding: 16px; border-radius: 10px; margin-bottom: 16px; }
   .manual-input.show { display: flex; animation: slideUp var(--anim-fast); }
@@ -247,7 +268,6 @@
   .price-edit-avg:active { transform: scale(0.97); }
   .price-edit-avg:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* === АДМИНКА === */
   .admin-modal { position: fixed; inset: 0; background: var(--menu-overlay); display: none; align-items: center; justify-content: center; z-index: 500; padding: 16px; }
   .admin-modal.show { display: flex; animation: fadeIn var(--anim-fast); }
   .admin-box { width: 100%; max-width: 480px; background: var(--panel-bg); color: var(--panel-text); border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.35); display: flex; flex-direction: column; max-height: 88vh; animation: slideUp var(--anim-fast); overflow: hidden; }
@@ -264,16 +284,24 @@
   .admin-toggle-list:hover { background: var(--menu-hover); }
   .admin-list { display: flex; flex-direction: column; gap: 6px; }
   .admin-list.collapsed { display: none; }
-  .admin-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border: 1px solid var(--panel-border); border-radius: 8px; background: var(--input-bg); }
-  .admin-item-info { flex: 1; min-width: 0; }
+  .admin-item { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 10px 12px; border: 1px solid var(--panel-border); border-radius: 8px; background: var(--input-bg); flex-wrap: wrap; }
+  .admin-item-info { flex: 1; min-width: 120px; }
   .admin-item-name { font-weight: 700; font-size: 14px; word-break: break-word; }
   .admin-item-details { font-size: 11px; color: #888; margin-top: 2px; }
   
   .admin-category-select {
     padding: 6px; border: 1px solid var(--panel-border); border-radius: 6px;
     background: var(--panel-bg); color: var(--panel-text); font-size: 12px; outline: none;
-    max-width: 120px; cursor: pointer;
+    max-width: 110px; cursor: pointer;
   }
+
+  .admin-age18-btn {
+    padding: 6px 10px; border: 2px solid #c62828; border-radius: 6px;
+    background: var(--panel-bg); color: #c62828; font-size: 12px; font-weight: 800;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .admin-age18-btn.active { background: #c62828; color: #fff; }
+  .admin-age18-btn:hover { transform: scale(1.05); }
   
   .admin-item-price { font-weight: 700; font-size: 13px; white-space: nowrap; }
   .admin-item-del { width: 32px; height: 32px; flex-shrink: 0; background: #ffebee; color: #c62828; border: none; border-radius: 8px; font-size: 18px; font-weight: 700; cursor: pointer; }
@@ -347,6 +375,16 @@
           </div>
 
           <div class="quick-panel" id="quickPanel"></div>
+
+          <div class="top-actions">
+            <button class="top-action-btn share-action-btn" onclick="shareReceipt()">
+              Поделиться чеком
+            </button>
+            <button class="top-action-btn" id="catalogToggleBtn" onclick="toggleCatalogList()">
+              <svg class="chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+              <span id="catalogToggleText">Свернуть список продуктов</span>
+            </button>
+          </div>
           
           <div class="catalog" id="catalog"></div>
         </div>
@@ -372,7 +410,7 @@
           </div>
 
           <div class="manual-actions">
-            <button class="btn-submit" id="btnSubmit" onclick="addManualItem()">🛒 Добавить в чек</button>
+            <button class="btn-submit" id="btnSubmit" onclick="addManualItem()">Добавить в чек</button>
             <button class="btn-cancel" id="btnCancel" onclick="toggleManualInput(false)">Отмена</button>
           </div>
         </div>
@@ -388,7 +426,9 @@
       </div>
 
       <div class="thanks" id="thanksEl">Спасибо за покупку!</div>
+
       <div class="receipt-footer-text" id="receiptDisclaimer">* Цены являются примерными и могут отличаться от реальных в магазине</div>
+      <div class="receipt-app-brand">Приложение «Умный чек»</div>
     </div>
   </div>
 
@@ -485,7 +525,6 @@
   </div>
 </div>
 
-<!-- === АДМИНКА: ввод пароля === -->
 <div class="admin-modal" id="adminPassModal">
   <div class="admin-pass-box">
     <div class="admin-pass-title">Вход в админ-панель</div>
@@ -499,7 +538,6 @@
   </div>
 </div>
 
-<!-- === АДМИНКА: панель управления === -->
 <div class="admin-modal" id="adminPanelModal">
   <div class="admin-box">
     <div class="admin-head">
@@ -571,6 +609,7 @@ let adminClickCount = 0;
 let adminClickTimer = null;
 let adminListCollapsed = false;
 let pendingCatalogItem = null;
+let currentShowTop = false;
 
 const CATEGORIES = [
   { id: 'all', name: 'Все', svg: '<svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>' },
@@ -596,14 +635,29 @@ let currentCategory = 'all';
 try { items = JSON.parse(localStorage.getItem('shopping_receipt_v20') || '[]'); } catch (e) {}
 function save() { localStorage.setItem('shopping_receipt_v20', JSON.stringify(items)); }
 
+function loadCatalogFromCache() {
+  try {
+    const cached = JSON.parse(localStorage.getItem('catalog_cache') || '[]');
+    if (Array.isArray(cached) && cached.length > 0) {
+      globalCatalog = cached;
+      renderCatalog(document.getElementById('searchInput')?.value || '');
+    }
+  } catch (e) {}
+}
+function saveCatalogToCache(list) {
+  try { localStorage.setItem('catalog_cache', JSON.stringify(list)); } catch (e) {}
+}
+
 function listenToGlobalCatalog() {
   const catalogRef = ref(db, 'catalog');
   onValue(catalogRef, (snapshot) => {
     const data = snapshot.val() || {};
     globalCatalog = Object.entries(data).map(([key, val]) => ({
       id: key, name: val.name, name_en: val.name_en || '', brand: val.brand || '', flavor: val.flavor || '',
-      price: val.avgPrice, count: val.count, category: val.category || 'other'
+      price: val.avgPrice, count: val.count, category: val.category || 'other',
+      age18: val.age18 === true
     }));
+    saveCatalogToCache(globalCatalog);
     renderCatalog(document.getElementById('searchInput').value);
     if (document.getElementById('adminPanelModal').classList.contains('show')) {
       renderAdminList();
@@ -638,7 +692,7 @@ async function setTheme(theme) {
   try {
     await set(ref(db, 'app_theme'), theme);
   } catch (err) {
-    alert('Ошибка смены темы: ' + err.message + '\n\nПроверьте правила Firebase (write: true).');
+    alert('Ошибка смены темы: ' + err.message);
   }
 }
 
@@ -647,17 +701,31 @@ function renderQuickPanel() {
   if (!panel) return;
   panel.innerHTML = '';
 
+  const topBtn = document.createElement('button');
+  topBtn.className = 'category-btn top-btn';
+  if (currentShowTop) topBtn.classList.add('active');
+  topBtn.textContent = '🔥';
+  topBtn.title = 'Топ по популярности';
+  topBtn.onclick = () => {
+    currentShowTop = !currentShowTop;
+    currentCategory = currentShowTop ? 'top' : 'all';
+    renderQuickPanel();
+    renderCatalog(document.getElementById('searchInput').value);
+    toggleQuickPanel();
+  };
+  panel.appendChild(topBtn);
+
   CATEGORIES.forEach(cat => {
     const btn = document.createElement('button');
     btn.className = 'category-btn';
-    if (currentCategory === cat.id) btn.classList.add('active');
+    if (!currentShowTop && currentCategory === cat.id) btn.classList.add('active');
     btn.innerHTML = cat.svg;
     btn.title = cat.name;
     
     btn.onclick = () => {
+      currentShowTop = false;
       currentCategory = cat.id;
-      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      renderQuickPanel();
       renderCatalog(document.getElementById('searchInput').value);
       toggleQuickPanel();
     };
@@ -671,6 +739,17 @@ window.toggleQuickPanel = () => {
   const btn = document.getElementById('quickToggleBtn');
   panel.classList.toggle('show');
   btn.classList.toggle('active');
+};
+
+let catalogCollapsed = false;
+window.toggleCatalogList = function() {
+  catalogCollapsed = !catalogCollapsed;
+  const catalog = document.getElementById('catalog');
+  const btn = document.getElementById('catalogToggleBtn');
+  const text = document.getElementById('catalogToggleText');
+  catalog.classList.toggle('collapsed', catalogCollapsed);
+  btn.classList.toggle('collapsed', catalogCollapsed);
+  text.textContent = catalogCollapsed ? 'Развернуть список продуктов' : 'Свернуть список продуктов';
 };
 
 async function translateText(text, targetLang) {
@@ -698,13 +777,14 @@ async function pushToGlobalCatalog(name, brand, flavor, price, category = 'other
     const newAvg = ((existing.price * existing.count) + price) / newCount;
     set(ref(db, 'catalog/' + existing.id), {
       name: existing.name, name_en: existing.name_en || name_en, brand: existing.brand || '', flavor: existing.flavor || '',
-      avgPrice: Math.round(newAvg * 100) / 100, count: newCount, category: existing.category || category
+      avgPrice: Math.round(newAvg * 100) / 100, count: newCount, category: existing.category || category,
+      age18: existing.age18 === true
     });
   } else {
     const newRef = push(ref(db, 'catalog'));
     set(newRef, {
       name: cleanName, name_en: name_en, brand: (brand || '').toLowerCase(), flavor: (flavor || '').toLowerCase(),
-      avgPrice: price, count: 1, category: category
+      avgPrice: price, count: 1, category: category, age18: false
     });
   }
 }
@@ -722,9 +802,9 @@ updateDate();
 
 const T = {
   ru: {
-    appTitle: 'Умный чек покупок', menuBtn: 'Меню', snapBtn: 'Снимок', saveBtn: '📸 Сохранить чек', receiptTitle: 'КАССОВЫЙ ЧЕК',
+    appTitle: 'Умный чек покупок', menuBtn: 'Меню', snapBtn: 'Снимок', saveBtn: 'Сохранить чек', receiptTitle: 'КАССОВЫЙ ЧЕК',
     searchPlaceholder: 'Поиск продукта...', manualName: 'Название продукта', manualBrand: 'Бренд (необязательно)', manualFlavor: 'Вкус (необязательно)',
-    priceLabel: 'Цена:', btnSubmit: '🛒 Добавить в чек', btnCancel: 'Отмена', totalQtyLabel: 'Итого позиций:', sumAllLabel: 'Сумма без скидки:', sumLeftLabel: 'К оплате:',
+    priceLabel: 'Цена:', btnSubmit: 'Добавить в чек', btnCancel: 'Отмена', totalQtyLabel: 'Итого позиций:', sumAllLabel: 'Сумма без скидки:', sumLeftLabel: 'К оплате:',
     thanks: 'Спасибо за покупку!', empty: 'Чек пуст', emptyAlert: 'Чек пуст!', nameAlert: 'Введите название продукта', notFound: 'Ничего не найдено',
     menuTitle: 'Меню', menuSettings: 'Настройки', menuSupport: 'Поддержка', menuClear: 'Очистить чек', menuIdea: 'Поделиться идеей',
     menuPrivacy: 'Политика конфиденциальности', menuTerms: 'Пользовательское соглашение',
@@ -733,12 +813,24 @@ const T = {
     enterPriceTitle: 'Введите цену',
     avgPriceLabel: 'Средняя цена',
     disclaimer: '* Цены являются примерными и могут отличаться от реальных в магазине',
-    privacyTitle: 'Политика конфиденциальности', privacyText: '<p>...</p>', termsTitle: 'Пользовательское соглашение', termsText: '<p>...</p>'
+    privacyTitle: 'Политика конфиденциальности',
+    privacyText: `<p><b>1. Какие данные хранятся локально</b><br>Ваш чек, настройки, тема хранятся только на устройстве в localStorage.</p>
+<p><b>2. Какие данные передаются в Firebase</b><br>Обезличенные: название продукта, бренд, вкус, средняя цена, счётчик добавлений, флаг 18+. Не привязаны к вам.</p>
+<p><b>3. Персональные данные</b><br>Не собираются: ФИО, телефон, e-mail, адрес, геолокация, фото, контакты.</p>
+<p><b>4. Cookies и аналитика</b><br>Не используются.</p>
+<p><b>5. Удаление данных</b><br>Меню → «Очистить чек», затем очистите данные сайта в браузере.</p>
+<p><b>6. Контакты</b><br>umpelevnikita@yandex.ru</p>`,
+    termsTitle: 'Пользовательское соглашение',
+    termsText: `<p><b>1. Назначение</b><br>Приложение — вспомогательный инструмент для списка покупок. Не является кассовым документом.</p>
+<p><b>2. Точность цен</b><br>Цены примерные, сформированы пользователями.</p>
+<p><b>3. Ответственность</b><br>Пользователь сам отвечает за введённые данные.</p>
+<p><b>4. Ограничение ответственности</b><br>«Как есть».</p>
+<p><b>5. Контакты</b><br>umpelevnikita@yandex.ru</p>`
   },
   en: {
-    appTitle: 'Smart Receipt', menuBtn: 'Menu', snapBtn: 'Snap', saveBtn: '📸 Save receipt', receiptTitle: 'CASH RECEIPT',
+    appTitle: 'Smart Receipt', menuBtn: 'Menu', snapBtn: 'Snap', saveBtn: 'Save receipt', receiptTitle: 'CASH RECEIPT',
     searchPlaceholder: 'Search product...', manualName: 'Product name', manualBrand: 'Brand (optional)', manualFlavor: 'Flavor (optional)',
-    priceLabel: 'Price:', btnSubmit: '🛒 Add to receipt', btnCancel: 'Cancel', totalQtyLabel: 'Total items:', sumAllLabel: 'Subtotal:', sumLeftLabel: 'Total to pay:',
+    priceLabel: 'Price:', btnSubmit: 'Add to receipt', btnCancel: 'Cancel', totalQtyLabel: 'Total items:', sumAllLabel: 'Subtotal:', sumLeftLabel: 'Total to pay:',
     thanks: 'Thank you for your purchase!', empty: 'Receipt is empty', emptyAlert: 'Receipt is empty!', nameAlert: 'Please enter a product name', notFound: 'Nothing found',
     menuTitle: 'Menu', menuSettings: 'Settings', menuSupport: 'Support', menuClear: 'Clear receipt', menuIdea: 'Share an idea',
     menuPrivacy: 'Privacy Policy', menuTerms: 'Terms of Service',
@@ -747,7 +839,19 @@ const T = {
     enterPriceTitle: 'Enter price',
     avgPriceLabel: 'Average price',
     disclaimer: '* Prices are approximate and may differ from actual store prices',
-    privacyTitle: 'Privacy Policy', privacyText: '<p>...</p>', termsTitle: 'Terms of Service', termsText: '<p>...</p>'
+    privacyTitle: 'Privacy Policy',
+    privacyText: `<p><b>1. Local data</b><br>Receipt, settings, theme — stored locally.</p>
+<p><b>2. Firebase data</b><br>Anonymized: name, brand, flavor, avg price, count, 18+ flag.</p>
+<p><b>3. Personal data</b><br>Not collected.</p>
+<p><b>4. Cookies/analytics</b><br>Not used.</p>
+<p><b>5. Deletion</b><br>Menu → Clear receipt + clear site data.</p>
+<p><b>6. Contacts</b><br>umpelevnikita@yandex.ru</p>`,
+    termsTitle: 'Terms of Service',
+    termsText: `<p><b>1. Purpose</b><br>Helper tool, not a fiscal document.</p>
+<p><b>2. Prices</b><br>Approximate.</p>
+<p><b>3. Responsibility</b><br>User is responsible.</p>
+<p><b>4. Disclaimer</b><br>As is.</p>
+<p><b>5. Contacts</b><br>umpelevnikita@yandex.ru</p>`
   }
 };
 function t(key) { return (T[currentLang] && T[currentLang][key]) || T.ru[key] || key; }
@@ -805,13 +909,24 @@ window.renderCatalog = function(filter = '') {
   const q = filter.trim().toLowerCase();
   let allItems = [...globalCatalog];
 
-  const filtered = allItems
-    .filter(item => {
-      const matchCategory = currentCategory === 'all' || item.category === currentCategory;
-      const searchStr = (item.name + ' ' + (item.name_en || '') + ' ' + (item.brand || '') + ' ' + (item.flavor || '')).toLowerCase();
-      return matchCategory && searchStr.includes(q);
-    })
-    .sort((a, b) => b.count - a.count);
+  let filtered;
+  if (currentCategory === 'top') {
+    filtered = allItems
+      .filter(item => {
+        const searchStr = (item.name + ' ' + (item.name_en || '') + ' ' + (item.brand || '') + ' ' + (item.flavor || '')).toLowerCase();
+        return searchStr.includes(q);
+      })
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 20);
+  } else {
+    filtered = allItems
+      .filter(item => {
+        const matchCategory = currentCategory === 'all' || item.category === currentCategory;
+        const searchStr = (item.name + ' ' + (item.name_en || '') + ' ' + (item.brand || '') + ' ' + (item.flavor || '')).toLowerCase();
+        return matchCategory && searchStr.includes(q);
+      })
+      .sort((a, b) => b.count - a.count);
+  }
 
   if (filtered.length === 0) {
     catalogEl.innerHTML = `<div class="catalog-empty">${t('notFound')}</div>`;
@@ -833,10 +948,11 @@ window.renderCatalog = function(filter = '') {
     const details = [item.brand, item.flavor].filter(Boolean).join(', ');
     const detailsHtml = details ? `<span class="catalog-details">${details}</span>` : '';
     const countText = `<span style="font-size:10px;color:#aaa;margin-left:6px;">(${item.count})</span>`;
+    const ageBadge = item.age18 ? ` <span class="badge-18">18+</span>` : '';
     const displayName = currentLang === 'en' && item.name_en ? item.name_en : item.name;
     const originalName = currentLang === 'en' && item.name_en && item.name !== item.name_en ? ` <span style="font-size:10px;color:#aaa;">(${item.name})</span>` : '';
     div.innerHTML = `
-      <span class="catalog-name">${displayName}${originalName}${detailsHtml}${countText}</span>
+      <span class="catalog-name">${displayName}${originalName}${ageBadge}${detailsHtml}${countText}</span>
       <span class="price" style="font-weight:600;color:#888;">ввести цену</span>
     `;
     div.onclick = () => {
@@ -895,7 +1011,7 @@ function applyCatalogPrice() {
     id: 'i_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
     text: displayName, brand: item.brand, flavor: item.flavor,
     price: price, qty: 1, unit: 'pcs', isNew: false, done: false,
-    photo: null, createdAt: Date.now(), category: item.category
+    photo: null, createdAt: Date.now(), category: item.category, age18: item.age18 === true
   });
 
   if (price > 0) pushToGlobalCatalog(item.name, item.brand, item.flavor, price, item.category);
@@ -979,9 +1095,7 @@ window.openPriceEdit = (id) => {
   priceEditTitle.textContent = t('priceEditTitle') + it.text;
   priceEditInput.value = Number(it.price) || 0;
   priceEditSave.textContent = t('priceEditSave');
-
   document.getElementById('priceEditAvg').style.display = 'none';
-
   priceEditModal.classList.add('show');
   setTimeout(() => { priceEditInput.focus(); priceEditInput.select(); }, 50);
 };
@@ -1011,6 +1125,72 @@ document.getElementById('priceEditCancel').onclick = closePriceEdit;
 priceEditModal.addEventListener('click', (e) => { if (e.target === priceEditModal) closePriceEdit(); });
 priceEditInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') applyPriceEdit(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePriceEdit(); });
+
+// ✅ Поделиться чеком — генерирует фото и отправляет
+window.shareReceipt = async function() {
+  if (items.length === 0) { alert(t('emptyAlert')); return; }
+  
+  // Генерируем фото чека
+  document.body.classList.remove('screenshot-blur');
+  const original = document.getElementById('receiptToCapture');
+  const clone = original.cloneNode(true);
+  clone.id = 'tempReceiptForShare';
+  const catalogWrapper = clone.querySelector('.catalog-wrapper');
+  if (catalogWrapper) catalogWrapper.remove();
+  const topActions = clone.querySelector('.top-actions');
+  if (topActions) topActions.remove();
+  clone.style.position = 'fixed';
+  clone.style.left = '-9999px';
+  clone.style.top = '0';
+  clone.style.width = '420px';
+  clone.style.background = '#ffffff';
+  clone.style.boxShadow = 'none';
+  clone.style.margin = '0';
+  clone.style.animation = 'none';
+  document.body.appendChild(clone);
+
+  try {
+    if (typeof html2canvas === 'undefined') {
+      alert('Библиотека html2canvas не загрузилась. Проверьте интернет.');
+      document.body.removeChild(clone);
+      return;
+    }
+
+    const canvas = await html2canvas(clone, { scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false });
+    document.body.removeChild(clone);
+
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+    if (!blob) { alert('Не удалось создать изображение'); return; }
+
+    const dateStr = new Date().toLocaleDateString(currentLang === 'en' ? 'en-GB' : 'ru-RU').replace(/[\.\/]/g, '-');
+    const fileName = (currentLang === 'en' ? 'Receipt_' : 'Чек_') + dateStr + '.png';
+    const file = new File([blob], fileName, { type: 'image/png' });
+
+    // Пытаемся поделиться файлом
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({
+          files: [file],
+          title: t('receiptTitle'),
+          text: 'Приложение «Умный чек»'
+        });
+        return;
+      } catch (e) {
+        if (e.name === 'AbortError') return;
+      }
+    }
+
+    // Fallback — скачиваем
+    const link = document.createElement('a');
+    link.download = fileName;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    
+  } catch (err) {
+    if (document.body.contains(clone)) document.body.removeChild(clone);
+    alert('Ошибка: ' + err.message);
+  }
+};
 
 window.render = function() {
   const list = document.getElementById('list');
@@ -1046,13 +1226,14 @@ window.render = function() {
     topRow.className = 'top-row';
 
     const textWrap = document.createElement('div');
-    textWrap.style.display = 'flex'; textWrap.style.gap = '8px'; textWrap.style.alignItems = 'center';
+    textWrap.style.display = 'flex'; textWrap.style.gap = '8px'; textWrap.style.alignItems = 'center'; textWrap.style.flexWrap = 'wrap';
 
     const textEl = document.createElement('div');
     textEl.className = 'text';
     const details = [item.brand, item.flavor].filter(Boolean).join(', ');
     const newLabel = item.isNew ? `<span class="new-badge">${t('newItem')}</span>` : '';
-    textEl.innerHTML = item.text + (details ? ' (' + details + ')' : '') + newLabel;
+    const ageBadge = item.age18 ? ` <span class="badge-18">18+</span>` : '';
+    textEl.innerHTML = item.text + ageBadge + (details ? ' (' + details + ')' : '') + newLabel;
     textEl.onclick = () => toggleItem(item.id);
     textWrap.appendChild(textEl);
     topRow.appendChild(textWrap);
@@ -1283,7 +1464,6 @@ function openAdminPass() {
   setTimeout(() => adminPassInput.focus(), 100);
 }
 
-// ✅ Универсальная функция скрытия экранной клавиатуры (iOS + Android)
 function hideKeyboard(inputEl) {
   if (!inputEl) return;
   try {
@@ -1313,7 +1493,6 @@ window.submitAdminPass = function() {
   }
 };
 
-// ✅ Автовход при вводе правильного пароля + гарантированное скрытие клавиатуры
 adminPassInput.addEventListener('input', () => {
   if (adminPassInput.value === ADMIN_PASSWORD) {
     setTimeout(() => {
@@ -1357,6 +1536,19 @@ window.toggleAdminList = function() {
   }
 };
 
+window.toggleAge18 = function(itemId) {
+  const item = globalCatalog.find(i => i.id === itemId);
+  if (!item) return;
+  const newVal = !item.age18;
+  update(ref(db, 'catalog/' + itemId), { age18: newVal })
+    .then(() => {
+      item.age18 = newVal;
+      renderAdminList();
+      renderCatalog(document.getElementById('searchInput').value);
+    })
+    .catch(err => alert('Ошибка: ' + err.message));
+};
+
 function renderAdminList() {
   const q = adminSearchEl.value.trim().toLowerCase();
   const sorted = [...globalCatalog].sort((a, b) => b.count - a.count);
@@ -1389,12 +1581,13 @@ function renderAdminList() {
 
     row.innerHTML = `
       <div class="admin-item-info">
-        <div class="admin-item-name">${item.name}</div>
+        <div class="admin-item-name">${item.name}${item.age18 ? ' <span class="badge-18">18+</span>' : ''}</div>
         <div class="admin-item-details">${detailsParts.join(' · ')}</div>
       </div>
       <select class="admin-category-select" data-id="${item.id}" title="Категория продукта">
         ${catOptions}
       </select>
+      <button class="admin-age18-btn ${item.age18 ? 'active' : ''}" onclick="event.stopPropagation(); window.toggleAge18('${item.id}')" title="Отметить как 18+">18+</button>
       <div class="admin-item-price">${formatPrice(item.price)}</div>
       <button class="admin-item-del" title="Удалить из базы">×</button>
     `;
@@ -1431,6 +1624,7 @@ document.querySelectorAll('.admin-theme-btn').forEach(btn => {
 
 /* ===================================================== */
 
+loadCatalogFromCache();
 listenToGlobalCatalog();
 listenToTheme();
 applyLanguage(currentLang);
