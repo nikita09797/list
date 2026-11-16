@@ -108,25 +108,24 @@
   .search-box input:focus { border-color: var(--accent); }
   .search-box input::placeholder { color: #999; }
 
-  /* Панель категорий */
   .quick-panel {
-    display: none; flex-direction: column; gap: 4px; margin-bottom: 8px; padding: 8px;
+    display: none; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; padding: 10px;
     background: var(--input-bg); border: 1px solid var(--panel-border); border-radius: 8px;
-    animation: fadeIn var(--anim-fast); max-height: 250px; overflow-y: auto;
+    animation: fadeIn var(--anim-fast);
   }
   .quick-panel.show { display: flex; }
   
   .category-btn {
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 14px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; border-radius: 10px;
     background: var(--panel-bg); border: 1px solid var(--panel-border);
     cursor: pointer; color: var(--panel-text); transition: all 0.2s;
-    font-size: 14px; font-weight: 600; text-align: left; width: 100%;
   }
   .category-btn:hover, .category-btn.active {
     background: var(--accent); color: var(--accent-text); border-color: var(--accent);
+    transform: scale(1.05);
   }
-  .category-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+  .category-btn svg { width: 22px; height: 22px; fill: currentColor; }
 
   .catalog { max-height: 220px; overflow-y: auto; border: 1px solid var(--panel-border); border-radius: 8px; background: var(--panel-bg); }
   .catalog-item {
@@ -135,7 +134,7 @@
   }
   .catalog-item:last-child { border-bottom: none; }
   .catalog-item:hover { background: var(--menu-hover); }
-  .catalog-item .price { font-weight: 700; white-space: nowrap; }
+  .catalog-item .price { font-weight: 700; white-space: nowrap; color: #888; }
   .catalog-name { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   .catalog-details { font-size: 11px; color: #888; font-style: italic; }
   .catalog-empty { padding: 20px; text-align: center; color: #666; font-size: 13px; }
@@ -243,6 +242,10 @@
   .price-edit-actions { display: flex; flex-direction: column; gap: 8px; }
   .price-edit-save { padding: 12px; background: #4caf50; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
   .price-edit-cancel { padding: 12px; background: var(--panel-bg); color: var(--panel-text); border: 1px solid var(--panel-border); border-radius: 8px; font-weight: 700; cursor: pointer; }
+  .price-edit-avg { padding: 12px; background: var(--input-bg); color: var(--panel-text); border: 2px solid var(--accent); border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background var(--anim-fast), transform 0.1s; }
+  .price-edit-avg:hover { background: var(--menu-hover); }
+  .price-edit-avg:active { transform: scale(0.97); }
+  .price-edit-avg:disabled { opacity: 0.4; cursor: not-allowed; }
 
   /* === АДМИНКА === */
   .admin-modal { position: fixed; inset: 0; background: var(--menu-overlay); display: none; align-items: center; justify-content: center; z-index: 500; padding: 16px; }
@@ -255,8 +258,12 @@
   .admin-body { padding: 12px 16px; overflow-y: auto; flex: 1; }
   .admin-search { width: 100%; padding: 10px 12px; border: 2px solid var(--panel-border); border-radius: 8px; font-size: 14px; outline: none; margin-bottom: 10px; background: var(--input-bg); color: var(--panel-text); }
   .admin-search:focus { border-color: var(--accent); }
-  .admin-stats { font-size: 12px; color: #888; margin-bottom: 10px; font-weight: 600; }
+  .admin-stats-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+  .admin-stats { font-size: 12px; color: #888; font-weight: 600; }
+  .admin-toggle-list { padding: 6px 10px; background: var(--input-bg); border: 1px solid var(--panel-border); border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; color: var(--panel-text); white-space: nowrap; transition: background var(--anim-fast); }
+  .admin-toggle-list:hover { background: var(--menu-hover); }
   .admin-list { display: flex; flex-direction: column; gap: 6px; }
+  .admin-list.collapsed { display: none; }
   .admin-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border: 1px solid var(--panel-border); border-radius: 8px; background: var(--input-bg); }
   .admin-item-info { flex: 1; min-width: 0; }
   .admin-item-name { font-weight: 700; font-size: 14px; word-break: break-word; }
@@ -265,7 +272,7 @@
   .admin-category-select {
     padding: 6px; border: 1px solid var(--panel-border); border-radius: 6px;
     background: var(--panel-bg); color: var(--panel-text); font-size: 12px; outline: none;
-    max-width: 110px; cursor: pointer;
+    max-width: 120px; cursor: pointer;
   }
   
   .admin-item-price { font-weight: 700; font-size: 13px; white-space: nowrap; }
@@ -285,19 +292,6 @@
   .admin-pass-error { color: #c62828; font-size: 12px; margin-bottom: 8px; display: none; }
   .admin-pass-error.show { display: block; }
 
-  /* Сворачиваемые секции админки */
-  .admin-section-header {
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 13px; font-weight: 800; margin-bottom: 8px; cursor: pointer;
-    user-select: none; padding: 4px 0;
-  }
-  .admin-section-header:hover { opacity: 0.8; }
-  .admin-section-header .chevron { transition: transform 0.2s ease; font-size: 14px; }
-  .admin-section-header.collapsed .chevron { transform: rotate(-90deg); }
-  .admin-section-content { display: block; margin-bottom: 16px; }
-  .admin-section-content.hidden { display: none; }
-
-  /* Сетка тем в админке */
   .admin-themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--panel-border); }
   .admin-theme-btn { padding: 8px 4px; border: 2px solid var(--panel-border); border-radius: 8px; background: var(--panel-bg); font-size: 10px; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: all 0.15s ease; color: var(--panel-text); }
   .admin-theme-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
@@ -310,20 +304,6 @@
   .theme-preview.victory { background: linear-gradient(135deg, #f5f5f0 50%, #fffef9 50%); }
   .theme-preview.summer { background: linear-gradient(135deg, #e0f7fa 50%, #f0ffff 50%); }
   .theme-preview.autumn { background: linear-gradient(135deg, #fff3e0 50%, #fffaf0 50%); }
-
-  /* Статистика устройств */
-  .admin-devices { display: grid; gap: 8px; margin-bottom: 8px; }
-  .device-stat { padding: 12px 8px; border: 1px solid var(--panel-border); border-radius: 8px; background: var(--input-bg); text-align: center; }
-  .device-stat-value { font-size: 24px; font-weight: 800; color: var(--accent); line-height: 1.2; margin-bottom: 4px; }
-  .device-stat-label { font-size: 11px; color: #888; font-weight: 600; }
-
-  /* История чеков */
-  .history-list { display: flex; flex-direction: column; gap: 8px; }
-  .history-item { padding: 12px; border: 1px solid var(--panel-border); border-radius: 8px; background: var(--input-bg); cursor: pointer; transition: background var(--anim-fast); }
-  .history-item:hover { background: var(--menu-hover); }
-  .history-item-date { font-size: 12px; color: #888; font-weight: 600; margin-bottom: 4px; }
-  .history-item-sum { font-size: 15px; font-weight: 700; color: var(--panel-text); }
-  .history-empty { text-align: center; color: #888; padding: 24px; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -423,7 +403,6 @@
   </div>
 
   <a href="#" data-menu="settings" id="menuSettings">Настройки</a>
-  <a href="#" data-menu="history" id="menuHistory">История чеков</a>
   <a href="#" data-menu="clear" id="menuClear">Очистить чек</a>
   
   <a href="#" data-menu="privacy" id="menuPrivacy">Политика конфиденциальности</a>
@@ -472,19 +451,6 @@
   </div>
 </div>
 
-<!-- Модалка истории чеков -->
-<div class="app-modal" id="modalHistory">
-  <div class="app-modal__box">
-    <div class="app-modal__head">
-      <div class="app-modal__title">История чеков</div>
-      <button class="app-modal__close" onclick="closeAppModal('modalHistory')">×</button>
-    </div>
-    <div class="app-modal__body" id="historyBody">
-      <!-- Сюда JS вставит список -->
-    </div>
-  </div>
-</div>
-
 <div class="app-modal" id="modalPrivacy">
   <div class="app-modal__box">
     <div class="app-modal__head">
@@ -507,9 +473,12 @@
 
 <div class="price-edit-modal" id="priceEditModal">
   <div class="price-edit-box">
-    <div class="price-edit-title" id="priceEditTitle">Изменить цену</div>
-    <input type="number" class="price-edit-input" id="priceEditInput" min="0" step="0.01" value="0">
-    <div class="price-edit-actions">
+    <div class="price-edit-title" id="priceEditTitle">Введите цену</div>
+    <input type="number" class="price-edit-input" id="priceEditInput" min="0" step="0.01" value="0" placeholder="0">
+    <button class="price-edit-avg" id="priceEditAvg" onclick="setAveragePrice()">
+      📊 Средняя цена: <span id="priceEditAvgValue">—</span>
+    </button>
+    <div class="price-edit-actions" style="margin-top: 10px;">
       <button class="price-edit-save" id="priceEditSave">Добавить в чек</button>
       <button class="price-edit-cancel" id="priceEditCancel">Отмена</button>
     </div>
@@ -522,7 +491,7 @@
     <div class="admin-pass-title">Вход в админ-панель</div>
     <div class="admin-pass-sub">Введите пароль для доступа</div>
     <div class="admin-pass-error" id="adminPassError">Неверный пароль</div>
-    <input type="password" class="admin-pass-input" id="adminPassInput" placeholder="Пароль" autocomplete="current-password">
+    <input type="password" class="admin-pass-input" id="adminPassInput" placeholder="Пароль" autocomplete="current-password" inputmode="numeric">
     <div class="admin-pass-actions">
       <button class="admin-pass-cancel" onclick="closeAdminPass()">Отмена</button>
       <button class="admin-pass-ok" onclick="submitAdminPass()">Войти</button>
@@ -539,51 +508,37 @@
     </div>
     <div class="admin-body">
       
-      <!-- СТАТИСТИКА УСТРОЙСТВ -->
-      <div style="font-size: 13px; font-weight: 800; margin-bottom: 8px;">📱 Активность</div>
-      <div class="admin-devices" style="grid-template-columns: 1fr;">
-        <div class="device-stat">
-          <div class="device-stat-value" id="devDay">0</div>
-          <div class="device-stat-label">Устройств за последние 24 часа</div>
-        </div>
-      </div>
-      <div style="border-top: 1px solid var(--panel-border); margin: 16px 0;"></div>
-
-      <!-- СВОРАЧИВАЕМОЕ ОФОРМЛЕНИЕ -->
-      <div class="admin-section-header" id="themeSectionHeader" onclick="toggleAdminSection('themeSection')">
-        <span>🎨 Оформление приложения</span>
-        <span class="chevron">▼</span>
-      </div>
-      <div class="admin-section-content" id="themeSection">
-        <div class="admin-themes" id="adminThemes">
-          <button class="admin-theme-btn" data-theme="default">
-            <div class="theme-preview default"></div><span>Стандарт</span>
-          </button>
-          <button class="admin-theme-btn" data-theme="newyear">
-            <div class="theme-preview newyear"></div><span>Новый год</span>
-          </button>
-          <button class="admin-theme-btn" data-theme="halloween">
-            <div class="theme-preview halloween"></div><span>Хэллоуин</span>
-          </button>
-          <button class="admin-theme-btn" data-theme="march8">
-            <div class="theme-preview march8"></div><span>8 марта</span>
-          </button>
-          <button class="admin-theme-btn" data-theme="victory">
-            <div class="theme-preview victory"></div><span>9 мая</span>
-          </button>
-          <button class="admin-theme-btn" data-theme="summer">
-            <div class="theme-preview summer"></div><span>Лето</span>
-          </button>
-          <button class="admin-theme-btn" data-theme="autumn">
-            <div class="theme-preview autumn"></div><span>Осень</span>
-          </button>
-        </div>
+      <div style="font-size: 13px; font-weight: 800; margin-bottom: 8px;">🎨 Оформление приложения</div>
+      <div class="admin-themes" id="adminThemes">
+        <button class="admin-theme-btn" data-theme="default">
+          <div class="theme-preview default"></div><span>Стандарт</span>
+        </button>
+        <button class="admin-theme-btn" data-theme="newyear">
+          <div class="theme-preview newyear"></div><span>Новый год</span>
+        </button>
+        <button class="admin-theme-btn" data-theme="halloween">
+          <div class="theme-preview halloween"></div><span>Хэллоуин</span>
+        </button>
+        <button class="admin-theme-btn" data-theme="march8">
+          <div class="theme-preview march8"></div><span>8 марта</span>
+        </button>
+        <button class="admin-theme-btn" data-theme="victory">
+          <div class="theme-preview victory"></div><span>9 мая</span>
+        </button>
+        <button class="admin-theme-btn" data-theme="summer">
+          <div class="theme-preview summer"></div><span>Лето</span>
+        </button>
+        <button class="admin-theme-btn" data-theme="autumn">
+          <div class="theme-preview autumn"></div><span>Осень</span>
+        </button>
       </div>
 
-      <!-- ПРОДУКТЫ -->
       <div style="font-size: 13px; font-weight: 800; margin-bottom: 8px;">📦 Продукты в базе</div>
       <input type="text" class="admin-search" id="adminSearch" placeholder="Поиск по названию, бренду, вкусу...">
-      <div class="admin-stats" id="adminStats">Загрузка...</div>
+      <div class="admin-stats-row">
+        <div class="admin-stats" id="adminStats">Загрузка...</div>
+        <button class="admin-toggle-list" id="adminToggleListBtn" onclick="toggleAdminList()">📋 Свернуть список</button>
+      </div>
       <div class="admin-list" id="adminList"></div>
     </div>
   </div>
@@ -614,8 +569,9 @@ const db = getDatabase(app);
 const ADMIN_PASSWORD = '140497';
 let adminClickCount = 0;
 let adminClickTimer = null;
+let adminListCollapsed = false;
+let pendingCatalogItem = null;
 
-// Список категорий
 const CATEGORIES = [
   { id: 'all', name: 'Все', svg: '<svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>' },
   { id: 'dairy', name: 'Молочные', svg: '<svg viewBox="0 0 24 24"><path d="M8 2h8l2 4v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6l2-4zm0 4v14h8V6H8zm2-2h4v2h-4V4z"/></svg>' },
@@ -640,108 +596,6 @@ let currentCategory = 'all';
 try { items = JSON.parse(localStorage.getItem('shopping_receipt_v20') || '[]'); } catch (e) {}
 function save() { localStorage.setItem('shopping_receipt_v20', JSON.stringify(items)); }
 
-// === ИСТОРИЯ ЧЕКОВ ===
-let receiptHistory = [];
-try { receiptHistory = JSON.parse(localStorage.getItem('receipt_history_v1') || '[]'); } catch(e) {}
-
-function saveHistory() {
-  localStorage.setItem('receipt_history_v1', JSON.stringify(receiptHistory));
-}
-
-function addToHistory() {
-  if (items.length === 0) return;
-  const total = items.reduce((sum, item) => sum + (item.price * item.qty), 0);
-  receiptHistory.unshift({
-    id: 'h_' + Date.now(),
-    date: Date.now(),
-    total: total,
-    items: JSON.parse(JSON.stringify(items))
-  });
-  if (receiptHistory.length > 50) receiptHistory.pop(); // храним последние 50
-  saveHistory();
-}
-
-function renderHistory() {
-  const body = document.getElementById('historyBody');
-  body.innerHTML = '';
-
-  if (receiptHistory.length === 0) {
-    body.innerHTML = '<div class="history-empty">История пуста. Завершите чек, чтобы он появился здесь.</div>';
-    return;
-  }
-
-  const list = document.createElement('div');
-  list.className = 'history-list';
-
-  receiptHistory.forEach(h => {
-    const item = document.createElement('div');
-    item.className = 'history-item';
-    const date = new Date(h.date).toLocaleString('ru-RU');
-    item.innerHTML = `
-      <div class="history-item-date">${date}</div>
-      <div class="history-item-sum">Сумма: ${formatPrice(h.total)}</div>
-      <div style="font-size: 12px; color: #888; margin-top: 4px;">Позиций: ${h.items.length}</div>
-    `;
-    item.onclick = () => {
-      if (confirm('Загрузить этот чек в текущий список?')) {
-        items = JSON.parse(JSON.stringify(h.items));
-        save(); render();
-        closeAppModal('modalHistory');
-      }
-    };
-    list.appendChild(item);
-  });
-  body.appendChild(list);
-}
-
-// === УЧЁТ УСТРОЙСТВ ===
-const DEVICE_KEY = 'app_device_id';
-let deviceId = localStorage.getItem(DEVICE_KEY);
-if (!deviceId) {
-  deviceId = 'dev_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
-  localStorage.setItem(DEVICE_KEY, deviceId);
-}
-
-function registerDevice() {
-  const devRef = ref(db, 'devices/' + deviceId);
-  const now = Date.now();
-  onValue(devRef, (snap) => {
-    const existing = snap.val();
-    set(devRef, {
-      firstSeen: existing?.firstSeen || now,
-      lastSeen: now
-    });
-  }, { onlyOnce: true });
-}
-registerDevice();
-
-setInterval(() => {
-  if (document.visibilityState === 'visible') {
-    update(ref(db, 'devices/' + deviceId), { lastSeen: Date.now() });
-  }
-}, 60000);
-
-let allDevices = [];
-function listenToDevices() {
-  onValue(ref(db, 'devices'), (snapshot) => {
-    const data = snapshot.val() || {};
-    allDevices = Object.values(data);
-    if (document.getElementById('adminPanelModal')?.classList.contains('show')) {
-      renderDevicesStats();
-    }
-  });
-}
-listenToDevices();
-
-function renderDevicesStats() {
-  const now = Date.now();
-  const DAY_MS = 24 * 60 * 60 * 1000;
-  const day = allDevices.filter(d => now - (d.lastSeen || 0) < DAY_MS).length;
-  const dEl = document.getElementById('devDay');
-  if (dEl) dEl.textContent = day;
-}
-
-// === БАЗА ДАННЫХ ПРОДУКТОВ ===
 function listenToGlobalCatalog() {
   const catalogRef = ref(db, 'catalog');
   onValue(catalogRef, (snapshot) => {
@@ -757,7 +611,6 @@ function listenToGlobalCatalog() {
   });
 }
 
-// === ТЕМЫ ОФОРМЛЕНИЯ ===
 function listenToTheme() {
   const themeRef = ref(db, 'app_theme');
   onValue(themeRef, (snapshot) => {
@@ -789,7 +642,6 @@ async function setTheme(theme) {
   }
 }
 
-// === ПАНЕЛЬ КАТЕГОРИЙ ===
 function renderQuickPanel() {
   const panel = document.getElementById('quickPanel');
   if (!panel) return;
@@ -799,7 +651,8 @@ function renderQuickPanel() {
     const btn = document.createElement('button');
     btn.className = 'category-btn';
     if (currentCategory === cat.id) btn.classList.add('active');
-    btn.innerHTML = `${cat.svg} <span>${cat.name}</span>`;
+    btn.innerHTML = cat.svg;
+    btn.title = cat.name;
     
     btn.onclick = () => {
       currentCategory = cat.id;
@@ -820,16 +673,6 @@ window.toggleQuickPanel = () => {
   btn.classList.toggle('active');
 };
 
-// === СВОРАЧИВАНИЕ СЕКЦИЙ АДМИНКИ ===
-window.toggleAdminSection = (id) => {
-  const el = document.getElementById(id);
-  const header = el.previousElementSibling;
-  if (!el || !header) return;
-  el.classList.toggle('hidden');
-  header.classList.toggle('collapsed');
-};
-
-// === ОСТАЛЬНАЯ ЛОГИКА ===
 async function translateText(text, targetLang) {
   if (!text) return text;
   try {
@@ -884,9 +727,11 @@ const T = {
     priceLabel: 'Цена:', btnSubmit: '🛒 Добавить в чек', btnCancel: 'Отмена', totalQtyLabel: 'Итого позиций:', sumAllLabel: 'Сумма без скидки:', sumLeftLabel: 'К оплате:',
     thanks: 'Спасибо за покупку!', empty: 'Чек пуст', emptyAlert: 'Чек пуст!', nameAlert: 'Введите название продукта', notFound: 'Ничего не найдено',
     menuTitle: 'Меню', menuSettings: 'Настройки', menuSupport: 'Поддержка', menuClear: 'Очистить чек', menuIdea: 'Поделиться идеей',
-    menuPrivacy: 'Политика конфиденциальности', menuTerms: 'Пользовательское соглашение', menuHistory: 'История чеков',
+    menuPrivacy: 'Политика конфиденциальности', menuTerms: 'Пользовательское соглашение',
     settingsTitle: 'Настройки', settingThanks: 'Показывать «Спасибо за покупку!»', settingAutosave: 'Автосохранение чека', languageTitle: 'Язык приложения',
     langRu: 'Русский', langEn: 'English', priceEditTitle: 'Изменить цену: ', priceEditSave: 'Добавить в чек', priceEditCancel: 'Отмена', newItem: 'новый',
+    enterPriceTitle: 'Введите цену',
+    avgPriceLabel: 'Средняя цена',
     disclaimer: '* Цены являются примерными и могут отличаться от реальных в магазине',
     privacyTitle: 'Политика конфиденциальности', privacyText: '<p>...</p>', termsTitle: 'Пользовательское соглашение', termsText: '<p>...</p>'
   },
@@ -896,9 +741,11 @@ const T = {
     priceLabel: 'Price:', btnSubmit: '🛒 Add to receipt', btnCancel: 'Cancel', totalQtyLabel: 'Total items:', sumAllLabel: 'Subtotal:', sumLeftLabel: 'Total to pay:',
     thanks: 'Thank you for your purchase!', empty: 'Receipt is empty', emptyAlert: 'Receipt is empty!', nameAlert: 'Please enter a product name', notFound: 'Nothing found',
     menuTitle: 'Menu', menuSettings: 'Settings', menuSupport: 'Support', menuClear: 'Clear receipt', menuIdea: 'Share an idea',
-    menuPrivacy: 'Privacy Policy', menuTerms: 'Terms of Service', menuHistory: 'History',
+    menuPrivacy: 'Privacy Policy', menuTerms: 'Terms of Service',
     settingsTitle: 'Settings', settingThanks: 'Show "Thank you for your purchase!"', settingAutosave: 'Receipt autosave', languageTitle: 'App language',
     langRu: 'Русский', langEn: 'English', priceEditTitle: 'Edit price: ', priceEditSave: 'Add to receipt', priceEditCancel: 'Cancel', newItem: 'new',
+    enterPriceTitle: 'Enter price',
+    avgPriceLabel: 'Average price',
     disclaimer: '* Prices are approximate and may differ from actual store prices',
     privacyTitle: 'Privacy Policy', privacyText: '<p>...</p>', termsTitle: 'Terms of Service', termsText: '<p>...</p>'
   }
@@ -927,7 +774,6 @@ function applyLanguage(lang) {
   document.getElementById('receiptDisclaimer').textContent = t('disclaimer');
   document.getElementById('menuTitle').textContent = t('menuTitle');
   document.getElementById('menuSettings').textContent = t('menuSettings');
-  document.getElementById('menuHistory').textContent = t('menuHistory');
   document.getElementById('menuClear').textContent = t('menuClear');
   document.getElementById('menuSupport').textContent = t('menuSupport');
   document.getElementById('menuIdea').textContent = t('menuIdea');
@@ -986,24 +832,81 @@ window.renderCatalog = function(filter = '') {
     div.className = 'catalog-item';
     const details = [item.brand, item.flavor].filter(Boolean).join(', ');
     const detailsHtml = details ? `<span class="catalog-details">${details}</span>` : '';
-    const priceText = formatPrice(item.price);
     const countText = `<span style="font-size:10px;color:#aaa;margin-left:6px;">(${item.count})</span>`;
     const displayName = currentLang === 'en' && item.name_en ? item.name_en : item.name;
     const originalName = currentLang === 'en' && item.name_en && item.name !== item.name_en ? ` <span style="font-size:10px;color:#aaa;">(${item.name})</span>` : '';
     div.innerHTML = `
       <span class="catalog-name">${displayName}${originalName}${detailsHtml}${countText}</span>
-      <span class="price">${priceText}</span>
+      <span class="price" style="font-weight:600;color:#888;">ввести цену</span>
     `;
     div.onclick = () => {
-      items.push({
-        id: 'i_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
-        text: displayName, brand: item.brand, flavor: item.flavor, price: item.price, qty: 1, unit: 'pcs', isNew: false, done: false, photo: null, createdAt: Date.now()
-      });
-      save(); render(); searchInput.value = ''; renderCatalog(''); searchInput.blur();
+      openCatalogPriceModal(item, displayName);
     };
     catalogEl.appendChild(div);
   });
 };
+
+function openCatalogPriceModal(item, displayName) {
+  pendingCatalogItem = { item, displayName };
+  priceEditTitle.textContent = t('enterPriceTitle') + ': ' + displayName;
+  priceEditInput.value = '';
+  priceEditInput.placeholder = '0';
+  priceEditSave.textContent = t('priceEditSave');
+
+  const avgBtn = document.getElementById('priceEditAvg');
+  const avgValueEl = document.getElementById('priceEditAvgValue');
+  const avgPrice = Number(item.price) || 0;
+
+  if (avgPrice > 0) {
+    avgValueEl.textContent = formatPrice(avgPrice);
+    avgBtn.disabled = false;
+    avgBtn.dataset.avgPrice = avgPrice;
+    avgBtn.style.display = 'flex';
+  } else {
+    avgValueEl.textContent = '—';
+    avgBtn.disabled = true;
+    avgBtn.dataset.avgPrice = '';
+    avgBtn.style.display = 'flex';
+  }
+
+  priceEditModal.classList.add('show');
+  setTimeout(() => { priceEditInput.focus(); }, 80);
+}
+
+window.setAveragePrice = function() {
+  const avgBtn = document.getElementById('priceEditAvg');
+  const avgPrice = parseFloat(avgBtn.dataset.avgPrice);
+  if (!isNaN(avgPrice) && avgPrice > 0) {
+    priceEditInput.value = avgPrice;
+    priceEditInput.focus();
+    priceEditInput.select();
+  }
+};
+
+function applyCatalogPrice() {
+  if (!pendingCatalogItem) return;
+  const val = parseFloat(priceEditInput.value);
+  if (isNaN(val) || val < 0) { closePriceEdit(); return; }
+
+  const { item, displayName } = pendingCatalogItem;
+  const price = Math.round(val * 100) / 100;
+
+  items.push({
+    id: 'i_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
+    text: displayName, brand: item.brand, flavor: item.flavor,
+    price: price, qty: 1, unit: 'pcs', isNew: false, done: false,
+    photo: null, createdAt: Date.now(), category: item.category
+  });
+
+  if (price > 0) pushToGlobalCatalog(item.name, item.brand, item.flavor, price, item.category);
+
+  save(); render();
+  closePriceEdit();
+  searchInput.value = '';
+  renderCatalog('');
+  searchInput.blur();
+  pendingCatalogItem = null;
+}
 
 searchInput.addEventListener('input', (e) => renderCatalog(e.target.value));
 
@@ -1044,8 +947,7 @@ window.addManualItem = () => {
     id: 'i_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
     text: name, brand, flavor, price, qty: 1, unit: 'pcs', isNew: true, done: false, photo: null, createdAt: Date.now()
   });
-  const catToSave = currentCategory === 'all' ? 'other' : currentCategory;
-  if (price > 0) pushToGlobalCatalog(name, brand, flavor, price, catToSave);
+  if (price > 0) pushToGlobalCatalog(name, brand, flavor, price, currentCategory === 'all' ? 'other' : currentCategory);
 
   save(); render();
   toggleManualInput(false);
@@ -1067,33 +969,44 @@ window.changeItemQty = (id, delta) => {
 const priceEditModal = document.getElementById('priceEditModal');
 const priceEditInput = document.getElementById('priceEditInput');
 const priceEditTitle = document.getElementById('priceEditTitle');
+const priceEditSave = document.getElementById('priceEditSave');
 
 window.openPriceEdit = (id) => {
   const it = items.find(x => x.id === id);
   if (!it) return;
   editingItemId = id;
+  pendingCatalogItem = null;
   priceEditTitle.textContent = t('priceEditTitle') + it.text;
   priceEditInput.value = Number(it.price) || 0;
+  priceEditSave.textContent = t('priceEditSave');
+
+  document.getElementById('priceEditAvg').style.display = 'none';
+
   priceEditModal.classList.add('show');
   setTimeout(() => { priceEditInput.focus(); priceEditInput.select(); }, 50);
 };
 
-function closePriceEdit() { priceEditModal.classList.remove('show'); editingItemId = null; }
+function closePriceEdit() {
+  priceEditModal.classList.remove('show');
+  editingItemId = null;
+  pendingCatalogItem = null;
+}
 
 function applyPriceEdit() {
+  if (pendingCatalogItem) { applyCatalogPrice(); return; }
   if (!editingItemId) return;
   const it = items.find(x => x.id === editingItemId);
   if (!it) { closePriceEdit(); return; }
   const val = parseFloat(priceEditInput.value);
   if (isNaN(val) || val < 0) { closePriceEdit(); return; }
   it.price = Math.round(val * 100) / 100;
-  if (it.price > 0) pushToGlobalCatalog(it.text, it.brand, it.flavor, it.price, it.category || 'other');
+  if (it.price > 0) pushToGlobalCatalog(it.text, it.brand, it.flavor, it.price, it.category);
   it.isNew = false;
   save(); render();
   closePriceEdit();
 }
 
-document.getElementById('priceEditSave').onclick = () => applyPriceEdit();
+priceEditSave.onclick = () => applyPriceEdit();
 document.getElementById('priceEditCancel').onclick = closePriceEdit;
 priceEditModal.addEventListener('click', (e) => { if (e.target === priceEditModal) closePriceEdit(); });
 priceEditInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') applyPriceEdit(); });
@@ -1299,12 +1212,10 @@ document.querySelectorAll('.side-menu a[data-menu]').forEach(link => {
     e.preventDefault();
     const key = link.dataset.menu;
     if (key === 'settings') openAppModal('modalSettings');
-    if (key === 'history') { renderHistory(); openAppModal('modalHistory'); }
     if (key === 'privacy') openAppModal('modalPrivacy');
     if (key === 'terms') openAppModal('modalTerms');
     if (key === 'clear') {
       if (confirm(currentLang === 'en' ? 'Clear receipt?' : 'Очистить чек?')) {
-        if (items.length > 0) addToHistory();
         items = [];
         save(); render();
         closeMenu();
@@ -1344,7 +1255,10 @@ document.querySelectorAll('input[name="lang"]').forEach(r => {
   r.addEventListener('change', () => { applyLanguage(r.value); closeAppModal('modalSettings'); });
 });
 
-/* === АДМИНКА === */
+/* ===================================================== */
+/* === АДМИНКА: логика ================================= */
+/* ===================================================== */
+
 const appTitleEl = document.getElementById('appTitle');
 const adminPassModal = document.getElementById('adminPassModal');
 const adminPassInput = document.getElementById('adminPassInput');
@@ -1353,6 +1267,7 @@ const adminPanelModal = document.getElementById('adminPanelModal');
 const adminListEl = document.getElementById('adminList');
 const adminStatsEl = document.getElementById('adminStats');
 const adminSearchEl = document.getElementById('adminSearch');
+const adminToggleListBtn = document.getElementById('adminToggleListBtn');
 
 appTitleEl.addEventListener('click', () => {
   adminClickCount++;
@@ -1368,7 +1283,20 @@ function openAdminPass() {
   setTimeout(() => adminPassInput.focus(), 100);
 }
 
+// ✅ Универсальная функция скрытия экранной клавиатуры (iOS + Android)
+function hideKeyboard(inputEl) {
+  if (!inputEl) return;
+  try {
+    inputEl.blur();
+    inputEl.setAttribute('readonly', 'readonly');
+    inputEl.blur();
+    setTimeout(() => { inputEl.removeAttribute('readonly'); }, 120);
+    if (document.activeElement === inputEl) document.body.focus();
+  } catch (e) {}
+}
+
 window.closeAdminPass = function() {
+  hideKeyboard(adminPassInput);
   adminPassModal.classList.remove('show');
   adminPassInput.value = '';
   adminPassError.classList.remove('show');
@@ -1376,7 +1304,6 @@ window.closeAdminPass = function() {
 
 window.submitAdminPass = function() {
   if (adminPassInput.value === ADMIN_PASSWORD) {
-    adminPassInput.blur(); // Убираем клавиатуру
     closeAdminPass();
     openAdminPanel();
   } else {
@@ -1385,6 +1312,19 @@ window.submitAdminPass = function() {
     adminPassInput.focus();
   }
 };
+
+// ✅ Автовход при вводе правильного пароля + гарантированное скрытие клавиатуры
+adminPassInput.addEventListener('input', () => {
+  if (adminPassInput.value === ADMIN_PASSWORD) {
+    setTimeout(() => {
+      hideKeyboard(adminPassInput);
+      adminPassModal.classList.remove('show');
+      adminPassInput.value = '';
+      adminPassError.classList.remove('show');
+      openAdminPanel();
+    }, 60);
+  }
+});
 
 adminPassInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') submitAdminPass();
@@ -1395,14 +1335,27 @@ adminPassModal.addEventListener('click', (e) => { if (e.target === adminPassModa
 function openAdminPanel() {
   adminPanelModal.classList.add('show');
   adminSearchEl.value = '';
+  adminListCollapsed = false;
+  adminListEl.classList.remove('collapsed');
+  adminToggleListBtn.textContent = '📋 Свернуть список';
   renderAdminList();
-  renderDevicesStats();
   applyTheme(currentTheme);
   setTimeout(() => adminSearchEl.focus(), 100);
 }
 window.closeAdminPanel = function() { adminPanelModal.classList.remove('show'); };
 adminPanelModal.addEventListener('click', (e) => { if (e.target === adminPanelModal) closeAdminPanel(); });
 adminSearchEl.addEventListener('input', () => renderAdminList());
+
+window.toggleAdminList = function() {
+  adminListCollapsed = !adminListCollapsed;
+  if (adminListCollapsed) {
+    adminListEl.classList.add('collapsed');
+    adminToggleListBtn.textContent = '📋 Развернуть список';
+  } else {
+    adminListEl.classList.remove('collapsed');
+    adminToggleListBtn.textContent = '📋 Свернуть список';
+  }
+};
 
 function renderAdminList() {
   const q = adminSearchEl.value.trim().toLowerCase();
@@ -1429,16 +1382,17 @@ function renderAdminList() {
     if (item.name_en && item.name_en !== item.name) detailsParts.push(`EN: ${item.name_en}`);
     detailsParts.push(`Добавлений: ${item.count}`);
 
-    const catOptions = CATEGORIES.filter(c => c.id !== 'all').map(c => 
-      `<option value="${c.id}" ${item.category === c.id ? 'selected' : ''}>${c.name}</option>`
-    ).join('');
+    const catOptions = CATEGORIES
+      .filter(c => c.id !== 'all')
+      .map(c => `<option value="${c.id}" ${item.category === c.id ? 'selected' : ''}>${c.name}</option>`)
+      .join('');
 
     row.innerHTML = `
       <div class="admin-item-info">
         <div class="admin-item-name">${item.name}</div>
         <div class="admin-item-details">${detailsParts.join(' · ')}</div>
       </div>
-      <select class="admin-category-select" data-id="${item.id}">
+      <select class="admin-category-select" data-id="${item.id}" title="Категория продукта">
         ${catOptions}
       </select>
       <div class="admin-item-price">${formatPrice(item.price)}</div>
@@ -1447,13 +1401,20 @@ function renderAdminList() {
 
     const select = row.querySelector('.admin-category-select');
     select.addEventListener('change', (e) => {
+      e.stopPropagation();
       const newCategory = e.target.value;
+      select.style.borderColor = '#ff9800';
       update(ref(db, 'catalog/' + item.id), { category: newCategory })
         .then(() => {
           item.category = newCategory;
+          select.style.borderColor = '#4caf50';
+          setTimeout(() => { select.style.borderColor = ''; }, 800);
           renderCatalog(document.getElementById('searchInput').value);
         })
-        .catch(err => alert('Ошибка при смене категории: ' + err.message));
+        .catch(err => {
+          select.style.borderColor = '#c62828';
+          alert('Ошибка при смене категории: ' + err.message);
+        });
     });
 
     row.querySelector('.admin-item-del').onclick = () => {
@@ -1468,7 +1429,8 @@ document.querySelectorAll('.admin-theme-btn').forEach(btn => {
   btn.addEventListener('click', () => setTheme(btn.dataset.theme));
 });
 
-/* === СТАРТ === */
+/* ===================================================== */
+
 listenToGlobalCatalog();
 listenToTheme();
 applyLanguage(currentLang);
