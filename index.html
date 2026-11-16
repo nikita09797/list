@@ -28,209 +28,139 @@
     --anim-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* ===== ТЕМЫ ОФОРМЛЕНИЯ ===== */
+  body.theme-newyear { --bg-body: #0b1a2a; --panel-bg: #14283e; --panel-text: #e8f4ff; --panel-border: #264060; --input-bg: #1a3350; --accent: #ffffff; --accent-text: #0b1a2a; --menu-border: #264060; --menu-hover: #1e3a58; --menu-overlay: rgba(0,0,0,0.6); --shadow: 0 8px 24px rgba(0,0,0,0.4); }
+  body.theme-newyear .receipt { background: #f8fbff; box-shadow: 0 10px 40px rgba(100,180,255,0.3); }
+  body.theme-newyear .receipt::after { background-image: radial-gradient(circle at 8px 0, transparent 8px, #f8fbff 9px); }
+  body.theme-halloween { --bg-body: #1a0f00; --panel-bg: #2a1a05; --panel-text: #ffcc66; --panel-border: #4a3010; --input-bg: #3a2510; --accent: #ff6600; --accent-text: #fff; --menu-border: #4a3010; --menu-hover: #3a2510; --menu-overlay: rgba(0,0,0,0.7); }
+  body.theme-halloween .receipt { background: #fff8e7; box-shadow: 0 10px 40px rgba(255,100,0,0.3); }
+  body.theme-halloween .receipt::after { background-image: radial-gradient(circle at 8px 0, transparent 8px, #fff8e7 9px); }
+  body.theme-march8 { --bg-body: #fdf2f8; --panel-bg: #ffffff; --panel-text: #831843; --panel-border: #fbcfe8; --input-bg: #fce7f3; --accent: #ec4899; --accent-text: #ffffff; --menu-border: #fbcfe8; --menu-hover: #fce7f3; --menu-overlay: rgba(131,24,67,0.4); }
+  body.theme-march8 .receipt { background: #fffbfd; box-shadow: 0 10px 40px rgba(236,72,153,0.2); }
+  body.theme-march8 .receipt::after { background-image: radial-gradient(circle at 8px 0, transparent 8px, #fffbfd 9px); }
+  body.theme-victory { --bg-body: #f5f5f0; --panel-bg: #ffffff; --panel-text: #2a1810; --panel-border: #d4c4a8; --input-bg: #faf6f0; --accent: #c8102e; --accent-text: #ffffff; --menu-border: #d4c4a8; --menu-hover: #f0e8dc; --menu-overlay: rgba(42,24,16,0.4); }
+  body.theme-victory .receipt { background: #fffef9; box-shadow: 0 10px 40px rgba(200,16,46,0.2); }
+  body.theme-victory .receipt::after { background-image: radial-gradient(circle at 8px 0, transparent 8px, #fffef9 9px); }
+  body.theme-summer { --bg-body: #e0f7fa; --panel-bg: #ffffff; --panel-text: #006064; --panel-border: #b2ebf2; --input-bg: #e0f7fa; --accent: #00838f; --accent-text: #ffffff; --menu-border: #b2ebf2; --menu-hover: #b2ebf2; --menu-overlay: rgba(0,96,100,0.4); }
+  body.theme-summer .receipt { background: #f0ffff; box-shadow: 0 10px 40px rgba(0,131,143,0.2); }
+  body.theme-summer .receipt::after { background-image: radial-gradient(circle at 8px 0, transparent 8px, #f0ffff 9px); }
+  body.theme-autumn { --bg-body: #fff3e0; --panel-bg: #ffffff; --panel-text: #4e1a00; --panel-border: #ffcc80; --input-bg: #fff8e1; --accent: #e65100; --accent-text: #ffffff; --menu-border: #ffcc80; --menu-hover: #ffe0b2; --menu-overlay: rgba(78,26,0,0.4); }
+  body.theme-autumn .receipt { background: #fffaf0; box-shadow: 0 10px 40px rgba(230,81,0,0.2); }
+  body.theme-autumn .receipt::after { background-image: radial-gradient(circle at 8px 0, transparent 8px, #fffaf0 9px); }
+
   body {
     font-family: var(--font-ui);
     background: var(--bg-body); min-height: 100vh; padding: 16px;
     display: flex; flex-direction: column; align-items: center;
     color: var(--panel-text);
+    transition: background 0.4s ease, color 0.4s ease;
   }
 
-  .page-content {
-    width: 100%;
-    display: flex; flex-direction: column; align-items: center;
-    transition: filter var(--anim-normal);
-  }
+  .page-content { width: 100%; display: flex; flex-direction: column; align-items: center; transition: filter var(--anim-normal); }
+  body.screenshot-blur .page-content { filter: blur(24px); transition: filter 0.05s ease; pointer-events: none; user-select: none; }
 
-  body.screenshot-blur .page-content {
-    filter: blur(24px);
-    transition: filter 0.05s ease;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .app-header {
-    width: 100%; max-width: 420px;
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 16px;
-    gap: 4px;
-  }
+  .app-header { width: 100%; max-width: 420px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 4px; }
 
   .header-nav-btn {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 8px 10px;
-    background: var(--panel-bg);
-    border: 1px solid var(--menu-border);
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    font-weight: 600;
-    font-size: 12px;
-    cursor: pointer;
-    transition: background var(--anim-fast), transform 0.1s;
-    color: var(--panel-text);
-    text-decoration: none;
-    flex-shrink: 0;
+    display: flex; align-items: center; gap: 4px; padding: 8px 10px;
+    background: var(--panel-bg); border: 1px solid var(--menu-border); border-radius: 12px;
+    box-shadow: var(--shadow); font-weight: 600; font-size: 12px; cursor: pointer;
+    transition: background var(--anim-fast), transform 0.1s; color: var(--panel-text); text-decoration: none; flex-shrink: 0;
   }
   .header-nav-btn:hover { background: var(--menu-hover); }
   .header-nav-btn:active { transform: scale(0.95); }
-  .header-nav-btn svg {
-    width: 16px; height: 16px;
-    stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
-  }
+  .header-nav-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-  .app-title {
-    font-size: 13px;
-    font-weight: 800;
-    text-align: center;
-    line-height: 1.1;
-    color: var(--panel-text);
-    flex: 1;
-    white-space: normal;
-    word-break: break-word;
-    cursor: default;
-    user-select: none; /* чтобы клики не выделяли текст */
-  }
+  .app-title { font-size: 13px; font-weight: 800; text-align: center; line-height: 1.1; color: var(--panel-text); flex: 1; word-break: break-word; cursor: default; user-select: none; }
 
   .receipt-wrapper { width: 100%; max-width: 420px; }
   .receipt {
-    background: #ffffff; color: #000000;
-    padding: 24px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.15); margin-bottom: 24px;
-    border-radius: 12px; font-family: var(--font-receipt);
-    animation: slideUp var(--anim-normal);
+    background: #ffffff; color: #000000; padding: 24px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    margin-bottom: 24px; border-radius: 12px; font-family: var(--font-receipt); animation: slideUp var(--anim-normal);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
   }
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .receipt::after {
-    content: ''; position: absolute; bottom: -8px; left: 0; right: 0; height: 8px; background-size: 16px 16px;
-    background-image: radial-gradient(circle at 8px 0, transparent 8px, #ffffff 9px);
-  }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .receipt::after { content: ''; position: absolute; bottom: -8px; left: 0; right: 0; height: 8px; background-size: 16px 16px; background-image: radial-gradient(circle at 8px 0, transparent 8px, #ffffff 9px); }
+  
   .receipt-header { text-align: center; margin-bottom: 20px; border-bottom: 2px dashed #e0e0e0; padding-bottom: 16px; }
   .receipt-header h1 { font-size: 20px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; font-weight: 700; color: #000; }
   .receipt-header p { font-size: 13px; color: #666; font-weight: 600; }
 
-  .receipt-footer-text {
-    font-size: 11px;
-    color: #999;
-    text-align: center;
-    font-family: var(--font-receipt);
-    margin-top: 20px;
-    padding-top: 10px;
-    border-top: 1px solid #eee;
-  }
-
+  .receipt-footer-text { font-size: 11px; color: #999; text-align: center; font-family: var(--font-receipt); margin-top: 20px; padding-top: 10px; border-top: 1px solid #eee; }
   .catalog-wrapper { display: block; animation: fadeIn var(--anim-fast); }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  .search-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-  
+  .search-row { display: flex; gap: 8px; margin-bottom: 8px; }
   .quick-btn {
-    width: 44px; height: 44px;
-    display: flex; align-items: center; justify-content: center;
-    background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 8px;
-    cursor: pointer; color: #000; flex-shrink: 0;
-    transition: background var(--anim-fast), border-color var(--anim-fast);
+    width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    background: var(--input-bg); border: 2px solid var(--panel-border); border-radius: 8px;
+    cursor: pointer; color: var(--panel-text); flex-shrink: 0; transition: background var(--anim-fast), border-color var(--anim-fast);
   }
-  .quick-btn:hover { background: #e0e0e0; }
-  .quick-btn svg { 
-    width: 16px; height: 16px; 
-    fill: currentColor; 
-    transition: transform 0.2s ease;
-  }
-  .quick-btn.active svg {
-    transform: rotate(180deg);
-  }
+  .quick-btn:hover { background: var(--menu-hover); }
+  .quick-btn svg { width: 20px; height: 20px; fill: currentColor; transition: transform 0.2s ease; }
+  .quick-btn.active svg { transform: rotate(180deg); }
   
-  .search-box { 
-    display: flex; 
-    flex: 1; 
-    gap: 8px; 
-  }
+  .search-box { display: flex; flex: 1; gap: 8px; }
   .search-box input {
-    flex: 1; padding: 12px 14px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 15px; background: #ffffff; color: #000; outline: none;
-    transition: border-color var(--anim-fast);
+    flex: 1; padding: 12px 14px; border: 2px solid var(--panel-border); border-radius: 8px; font-size: 15px;
+    background: var(--panel-bg); color: var(--panel-text); outline: none; transition: border-color var(--anim-fast);
   }
-  .search-box input:focus { border-color: #000; }
+  .search-box input:focus { border-color: var(--accent); }
+  .search-box input::placeholder { color: #999; }
 
+  /* Панель категорий */
   .quick-panel {
-    display: none;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 8px;
-    padding: 10px;
-    background: #f8f9fa;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    animation: fadeIn var(--anim-fast);
+    display: none; flex-direction: column; gap: 4px; margin-bottom: 8px; padding: 8px;
+    background: var(--input-bg); border: 1px solid var(--panel-border); border-radius: 8px;
+    animation: fadeIn var(--anim-fast); max-height: 250px; overflow-y: auto;
   }
   .quick-panel.show { display: flex; }
-  .quick-tag {
-    padding: 8px 14px;
-    background: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #333;
-    cursor: pointer;
-    transition: background var(--anim-fast), border-color var(--anim-fast);
+  
+  .category-btn {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px; border-radius: 8px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border);
+    cursor: pointer; color: var(--panel-text); transition: all 0.2s;
+    font-size: 14px; font-weight: 600; text-align: left; width: 100%;
   }
-  .quick-tag:hover {
-    background: #e0e0e0;
-    border-color: #ccc;
+  .category-btn:hover, .category-btn.active {
+    background: var(--accent); color: var(--accent-text); border-color: var(--accent);
   }
+  .category-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
 
-  .catalog {
-    max-height: 220px; overflow-y: auto; border: 1px solid #e0e0e0; border-radius: 8px; background: #ffffff;
-  }
+  .catalog { max-height: 220px; overflow-y: auto; border: 1px solid var(--panel-border); border-radius: 8px; background: var(--panel-bg); }
   .catalog-item {
-    padding: 12px 14px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between;
-    cursor: pointer; font-size: 14px; color: #000; gap: 8px;
-    transition: background var(--anim-fast);
+    padding: 12px 14px; border-bottom: 1px solid var(--panel-border); display: flex; justify-content: space-between;
+    cursor: pointer; font-size: 14px; color: var(--panel-text); gap: 8px; transition: background var(--anim-fast);
   }
   .catalog-item:last-child { border-bottom: none; }
-  .catalog-item:hover { background: #f9f9f9; }
+  .catalog-item:hover { background: var(--menu-hover); }
   .catalog-item .price { font-weight: 700; white-space: nowrap; }
   .catalog-name { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   .catalog-details { font-size: 11px; color: #888; font-style: italic; }
   .catalog-empty { padding: 20px; text-align: center; color: #666; font-size: 13px; }
 
-  .manual-input {
-    display: none; flex-direction: column; gap: 12px; background: #ffffff; border: 1px solid #e0e0e0; padding: 16px; border-radius: 10px; margin-bottom: 16px;
-  }
+  .manual-input { display: none; flex-direction: column; gap: 12px; background: var(--panel-bg); border: 1px solid var(--panel-border); padding: 16px; border-radius: 10px; margin-bottom: 16px; }
   .manual-input.show { display: flex; animation: slideUp var(--anim-fast); }
   .manual-row { display: flex; gap: 8px; align-items: center; }
   .manual-row input[type="text"] {
-    flex: 1; padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 14px; background: #ffffff; color: #000; outline: none;
+    flex: 1; padding: 12px; border: 1px solid var(--panel-border); border-radius: 8px; font-size: 14px; background: var(--input-bg); color: var(--panel-text); outline: none;
     transition: border-color var(--anim-fast);
   }
-  .manual-row input[type="text"]:focus { border-color: #000; }
+  .manual-row input[type="text"]:focus { border-color: var(--accent); }
 
   .price-wrap { display: flex; flex-direction: column; gap: 10px; width: 100%; }
-  .price-top { display: flex; align-items: center; gap: 10px; color: #000; }
-  .price-top input[type="number"] {
-    width: 100px; padding: 10px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 15px; text-align: right; font-weight: 700; color: #000;
-  }
+  .price-top { display: flex; align-items: center; gap: 10px; color: var(--panel-text); }
+  .price-top input[type="number"] { width: 100px; padding: 10px; border: 1px solid var(--panel-border); border-radius: 8px; font-size: 15px; text-align: right; font-weight: 700; color: var(--panel-text); background: var(--input-bg); }
 
-  input[type="range"] { -webkit-appearance: none; width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; }
-  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; background: #000; border-radius: 50%; cursor: pointer; }
+  input[type="range"] { -webkit-appearance: none; width: 100%; height: 8px; background: var(--panel-border); border-radius: 4px; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; background: var(--accent); border-radius: 50%; cursor: pointer; }
 
   .manual-actions { display: flex; gap: 10px; margin-top: 8px; flex-direction: column;}
-
   .btn-submit { padding: 12px; background: #4caf50; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%; font-size: 14px; transition: background var(--anim-fast); }
   .btn-submit:hover { background: #43a047; }
-  .btn-cancel { padding: 12px; background: #ffffff; color: #000; border: 1px solid #e0e0e0; border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%; font-size: 14px; transition: background var(--anim-fast); }
-  .btn-cancel:hover { background: #f9f9f9; }
+  .btn-cancel { padding: 12px; background: var(--panel-bg); color: var(--panel-text); border: 1px solid var(--panel-border); border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%; font-size: 14px; transition: background var(--anim-fast); }
+  .btn-cancel:hover { background: var(--menu-hover); }
 
   .receipt ul { list-style: none; }
   .receipt li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px dashed #e0e0e0; color: #000; animation: fadeIn var(--anim-fast); }
@@ -246,8 +176,8 @@
   .text { font-weight: 700; cursor: pointer; word-break: break-word; font-size: 15px; flex: 1; }
   .new-badge { font-size: 10px; color: #fff; background: #ff9800; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; font-weight: 700; }
 
-  .item-controls { display: flex; align-items: center; gap: 4px; background: #ffffff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 2px; }
-  .item-btn { width: 26px; height: 26px; background: #ffffff; border: none; border-radius: 4px; font-size: 16px; font-weight: 700; cursor: pointer; color: #000; transition: background var(--anim-fast); }
+  .item-controls { display: flex; align-items: center; gap: 4px; background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 2px; }
+  .item-btn { width: 26px; height: 26px; background: #fff; border: none; border-radius: 4px; font-size: 16px; font-weight: 700; cursor: pointer; color: #000; transition: background var(--anim-fast); }
   .item-btn:hover { background: #f0f0f0; }
   .item-qty { min-width: 20px; text-align: center; font-weight: 700; font-size: 13px; color: #000; }
 
@@ -257,11 +187,7 @@
   .del { background: none; border: none; color: #000; font-size: 22px; cursor: pointer; padding: 0 4px; margin-left: 4px; transition: color var(--anim-fast); }
   .del:hover { color: #f44336; }
 
-  .item-price-btn {
-    background: none; border: none; padding: 0; cursor: pointer;
-    color: #000; font: inherit; text-decoration: underline dotted;
-    text-underline-offset: 3px; font-weight: 600;
-  }
+  .item-price-btn { background: none; border: none; padding: 0; cursor: pointer; color: #000; font: inherit; text-decoration: underline dotted; text-underline-offset: 3px; font-weight: 600; }
   .item-price-btn:hover { opacity: 0.7; }
 
   .totals { margin-top: 20px; font-size: 15px; }
@@ -270,252 +196,134 @@
   .qty-info { font-size: 13px; color: #666; text-align: right; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; }
   .thanks { text-align: center; font-size: 13px; color: #666; margin-top: 24px; font-weight: 600; text-transform: uppercase; }
 
-  .hide-for-screenshot { display: none !important; }
-
   .modal { position: fixed; inset: 0; background: rgba(0,0,0,.9); display: none; align-items: center; justify-content: center; z-index: 100; }
   .modal.show { display: flex; animation: fadeIn var(--anim-fast); }
   .modal img { max-width: 100%; max-height: 90vh; border-radius: 8px; }
   .modal .close { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,.2); color: #fff; width: 44px; height: 44px; border-radius: 50%; font-size: 24px; cursor: pointer; }
 
-  .overlay {
-    position: fixed; inset: 0; background: var(--menu-overlay);
-    opacity: 0; visibility: hidden;
-    transition: opacity var(--anim-normal), visibility var(--anim-normal);
-    z-index: 90;
-  }
+  .overlay { position: fixed; inset: 0; background: var(--menu-overlay); opacity: 0; visibility: hidden; transition: opacity var(--anim-normal), visibility var(--anim-normal); z-index: 90; }
   .overlay.open { opacity: 1; visibility: visible; }
 
-  .side-menu {
-    position: fixed; top: 0; left: 0; height: 100%;
-    width: 45vw;
-    max-width: 320px;
-    background: var(--panel-bg);
-    border-right: 1px solid var(--menu-border);
-    box-shadow: 6px 0 20px var(--menu-shadow);
-    transform: translateX(-100%);
-    transition: transform var(--anim-normal);
-    z-index: 100;
-    display: flex; flex-direction: column;
-    padding: 16px 0;
-    overflow-y: auto;
-  }
+  .side-menu { position: fixed; top: 0; left: 0; height: 100%; width: 45vw; max-width: 320px; background: var(--panel-bg); border-right: 1px solid var(--menu-border); box-shadow: 6px 0 20px var(--menu-shadow); transform: translateX(-100%); transition: transform var(--anim-normal); z-index: 100; display: flex; flex-direction: column; padding: 16px 0; overflow-y: auto; }
   .side-menu.open { transform: translateX(0); }
-
-  .side-menu__header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 16px 12px; border-bottom: 1px solid var(--menu-border);
-    margin-bottom: 8px;
-  }
+  .side-menu__header { display: flex; align-items: center; justify-content: space-between; padding: 0 16px 12px; border-bottom: 1px solid var(--menu-border); margin-bottom: 8px; }
   .side-menu__title { font-size: 18px; font-weight: 700; }
-
-  .close-btn {
-    width: 36px; height: 36px;
-    display: flex; align-items: center; justify-content: center;
-    background: transparent; border: none; border-radius: 8px;
-    cursor: pointer; font-size: 24px; line-height: 1; color: var(--panel-text);
-    transition: background var(--anim-fast);
-  }
+  .close-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; border-radius: 8px; cursor: pointer; font-size: 24px; line-height: 1; color: var(--panel-text); transition: background var(--anim-fast); }
   .close-btn:hover { background: var(--menu-hover); }
 
-  .side-menu a {
-    display: block; padding: 14px 16px;
-    color: var(--panel-text); text-decoration: none; font-size: 15px;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    transition: background var(--anim-fast);
-    cursor: pointer;
-  }
+  .side-menu a { display: block; padding: 14px 16px; color: var(--panel-text); text-decoration: none; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: background var(--anim-fast); cursor: pointer; }
   .side-menu a:hover { background: var(--menu-hover); }
   .side-menu .divider { height: 1px; background: var(--menu-border); margin: 8px 0; }
 
-  .menu-contact-group {
-    padding: 0 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: auto;
-    margin-bottom: 16px;
-  }
-  .contact-btn {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px;
-    background: #f8f9fa;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    color: var(--panel-text);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-    transition: background var(--anim-fast);
-  }
-  .contact-btn:hover { background: #f0f0f0; }
-  .contact-btn svg {
-    width: 18px; height: 18px;
-    stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
-  }
+  .menu-contact-group { padding: 0 16px; display: flex; flex-direction: column; gap: 10px; margin-top: auto; margin-bottom: 16px; }
+  .contact-btn { display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--input-bg); border: 1px solid var(--panel-border); border-radius: 8px; color: var(--panel-text); text-decoration: none; font-size: 14px; font-weight: 600; transition: background var(--anim-fast); }
+  .contact-btn:hover { background: var(--menu-hover); }
+  .contact-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-  .app-modal {
-    position: fixed; inset: 0;
-    background: var(--menu-overlay);
-    display: none; align-items: center; justify-content: center;
-    z-index: 200; padding: 16px;
-  }
+  .app-modal { position: fixed; inset: 0; background: var(--menu-overlay); display: none; align-items: center; justify-content: center; z-index: 200; padding: 16px; }
   .app-modal.show { display: flex; animation: fadeIn var(--anim-fast); }
-
-  .app-modal__box {
-    width: 100%; max-width: 400px;
-    background: #ffffff; 
-    color: #000000; 
-    border-radius: 14px;
-    box-shadow: 0 20px 50px rgba(0,0,0,.3);
-    overflow: hidden;
-    animation: slideUp var(--anim-fast);
-    max-height: 85vh;
-    display: flex;
-    flex-direction: column;
-  }
-  .app-modal__head {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 16px; border-bottom: 1px solid #eaeaea;
-  }
-  .app-modal__title { font-size: 16px; font-weight: 700; color: #000; }
-  .app-modal__close {
-    width: 32px; height: 32px; border: none; background: transparent;
-    font-size: 22px; line-height: 1; cursor: pointer; border-radius: 8px;
-    color: #000;
-  }
-  .app-modal__close:hover { background: #f2f2f2; }
+  .app-modal__box { width: 100%; max-width: 400px; background: var(--panel-bg); color: var(--panel-text); border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.3); overflow: hidden; animation: slideUp var(--anim-fast); max-height: 85vh; display: flex; flex-direction: column; }
+  .app-modal__head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--panel-border); }
+  .app-modal__title { font-size: 16px; font-weight: 700; }
+  .app-modal__close { width: 32px; height: 32px; border: none; background: transparent; font-size: 22px; line-height: 1; cursor: pointer; border-radius: 8px; color: var(--panel-text); }
+  .app-modal__close:hover { background: var(--menu-hover); }
+  .app-modal__body { padding: 16px; overflow-y: auto; font-size: 14px; line-height: 1.6; }
   
-  .app-modal__body { 
-    padding: 16px; 
-    overflow-y: auto; 
-    font-size: 14px; 
-    line-height: 1.6; 
-    color: #000; 
-    background: #ffffff;
-  }
+  .app-setting { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; font-size: 15px; gap: 12px; border-bottom: 1px solid var(--panel-border); }
+  .app-setting input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; }
+  .app-lang { display: flex; align-items: center; gap: 10px; padding: 12px 0; font-size: 15px; cursor: pointer; border-bottom: 1px solid var(--panel-border); }
+  .app-lang input { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
 
-  .app-setting {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 0; font-size: 15px; gap: 12px;
-    border-bottom: 1px solid #eee;
-    color: #000;
-  }
-  .app-setting:last-of-type { border-bottom: none; }
-  .app-setting input[type="checkbox"] { width: 20px; height: 20px; accent-color: #000; cursor: pointer; }
-
-  .app-lang {
-    display: flex; align-items: center; gap: 10px;
-    padding: 12px 0; font-size: 15px; cursor: pointer;
-    border-bottom: 1px solid #eee;
-    color: #000;
-  }
-  .app-lang:last-of-type { border-bottom: none; }
-  .app-lang input { width: 18px; height: 18px; accent-color: #000; cursor: pointer; }
-
-  .price-edit-modal {
-    position: fixed; inset: 0; background: var(--menu-overlay);
-    display: none; align-items: center; justify-content: center;
-    z-index: 300; padding: 16px;
-  }
+  .price-edit-modal { position: fixed; inset: 0; background: var(--menu-overlay); display: none; align-items: center; justify-content: center; z-index: 300; padding: 16px; }
   .price-edit-modal.show { display: flex; animation: fadeIn var(--anim-fast); }
-  .price-edit-box {
-    width: 100%; max-width: 340px; background: #ffffff;
-    border-radius: 14px; padding: 18px; box-shadow: 0 20px 50px rgba(0,0,0,.3);
-    animation: slideUp var(--anim-fast);
-    color: #000;
-  }
-  .price-edit-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; color: #000; }
-  .price-edit-input {
-    width: 100%; padding: 12px; font-size: 18px; font-weight: 700; text-align: right;
-    border: 2px solid #e0e0e0; border-radius: 8px; outline: none; margin-bottom: 12px;
-    color: #000; background: #fff;
-    transition: border-color var(--anim-fast);
-  }
-  .price-edit-input:focus { border-color: #000; }
+  .price-edit-box { width: 100%; max-width: 340px; background: var(--panel-bg); border-radius: 14px; padding: 18px; box-shadow: 0 20px 50px rgba(0,0,0,.3); animation: slideUp var(--anim-fast); color: var(--panel-text); }
+  .price-edit-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+  .price-edit-input { width: 100%; padding: 12px; font-size: 18px; font-weight: 700; text-align: right; border: 2px solid var(--panel-border); border-radius: 8px; outline: none; margin-bottom: 12px; color: var(--panel-text); background: var(--input-bg); }
+  .price-edit-input:focus { border-color: var(--accent); }
   .price-edit-actions { display: flex; flex-direction: column; gap: 8px; }
-  .price-edit-save { padding: 12px; background: #4caf50; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: background var(--anim-fast); }
-  .price-edit-save:hover { background: #43a047; }
-  .price-edit-cancel { padding: 12px; background: #fff; color: #000; border: 1px solid #e0e0e0; border-radius: 8px; font-weight: 700; cursor: pointer; }
+  .price-edit-save { padding: 12px; background: #4caf50; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
+  .price-edit-cancel { padding: 12px; background: var(--panel-bg); color: var(--panel-text); border: 1px solid var(--panel-border); border-radius: 8px; font-weight: 700; cursor: pointer; }
 
   /* === АДМИНКА === */
-  .admin-modal {
-    position: fixed; inset: 0; background: var(--menu-overlay);
-    display: none; align-items: center; justify-content: center;
-    z-index: 500; padding: 16px;
-  }
+  .admin-modal { position: fixed; inset: 0; background: var(--menu-overlay); display: none; align-items: center; justify-content: center; z-index: 500; padding: 16px; }
   .admin-modal.show { display: flex; animation: fadeIn var(--anim-fast); }
-  .admin-box {
-    width: 100%; max-width: 480px; background: #fff; color: #000;
-    border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.35);
-    display: flex; flex-direction: column; max-height: 88vh;
-    animation: slideUp var(--anim-fast);
-    overflow: hidden;
-  }
-  .admin-head {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 16px; border-bottom: 1px solid #eaeaea; flex-shrink: 0;
-  }
+  .admin-box { width: 100%; max-width: 480px; background: var(--panel-bg); color: var(--panel-text); border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.35); display: flex; flex-direction: column; max-height: 88vh; animation: slideUp var(--anim-fast); overflow: hidden; }
+  .admin-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--panel-border); flex-shrink: 0; }
   .admin-title { font-size: 16px; font-weight: 800; }
-  .admin-close {
-    width: 32px; height: 32px; border: none; background: transparent;
-    font-size: 22px; line-height: 1; cursor: pointer; border-radius: 8px;
-  }
-  .admin-close:hover { background: #f2f2f2; }
+  .admin-close { width: 32px; height: 32px; border: none; background: transparent; font-size: 22px; line-height: 1; cursor: pointer; border-radius: 8px; color: var(--panel-text); }
+  .admin-close:hover { background: var(--menu-hover); }
   .admin-body { padding: 12px 16px; overflow-y: auto; flex: 1; }
-  .admin-search {
-    width: 100%; padding: 10px 12px; border: 2px solid #e0e0e0; border-radius: 8px;
-    font-size: 14px; outline: none; margin-bottom: 10px;
-  }
-  .admin-search:focus { border-color: #000; }
-  .admin-stats {
-    font-size: 12px; color: #666; margin-bottom: 10px; font-weight: 600;
-  }
+  .admin-search { width: 100%; padding: 10px 12px; border: 2px solid var(--panel-border); border-radius: 8px; font-size: 14px; outline: none; margin-bottom: 10px; background: var(--input-bg); color: var(--panel-text); }
+  .admin-search:focus { border-color: var(--accent); }
+  .admin-stats { font-size: 12px; color: #888; margin-bottom: 10px; font-weight: 600; }
   .admin-list { display: flex; flex-direction: column; gap: 6px; }
-  .admin-item {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 8px; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 8px;
-    background: #fafafa;
-  }
+  .admin-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border: 1px solid var(--panel-border); border-radius: 8px; background: var(--input-bg); }
   .admin-item-info { flex: 1; min-width: 0; }
   .admin-item-name { font-weight: 700; font-size: 14px; word-break: break-word; }
   .admin-item-details { font-size: 11px; color: #888; margin-top: 2px; }
-  .admin-item-price { font-weight: 700; font-size: 13px; white-space: nowrap; }
-  .admin-item-del {
-    width: 32px; height: 32px; flex-shrink: 0;
-    background: #ffebee; color: #c62828; border: none; border-radius: 8px;
-    font-size: 18px; font-weight: 700; cursor: pointer;
-    transition: background var(--anim-fast);
+  
+  .admin-category-select {
+    padding: 6px; border: 1px solid var(--panel-border); border-radius: 6px;
+    background: var(--panel-bg); color: var(--panel-text); font-size: 12px; outline: none;
+    max-width: 110px; cursor: pointer;
   }
+  
+  .admin-item-price { font-weight: 700; font-size: 13px; white-space: nowrap; }
+  .admin-item-del { width: 32px; height: 32px; flex-shrink: 0; background: #ffebee; color: #c62828; border: none; border-radius: 8px; font-size: 18px; font-weight: 700; cursor: pointer; }
   .admin-item-del:hover { background: #ffcdd2; }
   .admin-empty { text-align: center; color: #888; padding: 24px; font-size: 13px; }
 
-  /* Форма ввода пароля */
-  .admin-pass-box {
-    width: 100%; max-width: 340px; background: #fff; color: #000;
-    border-radius: 14px; padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,.35);
-    animation: slideUp var(--anim-fast);
-  }
+  .admin-pass-box { width: 100%; max-width: 340px; background: var(--panel-bg); color: var(--panel-text); border-radius: 14px; padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,.35); animation: slideUp var(--anim-fast); }
   .admin-pass-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
   .admin-pass-sub { font-size: 12px; color: #888; margin-bottom: 14px; }
-  .admin-pass-input {
-    width: 100%; padding: 12px; font-size: 16px;
-    border: 2px solid #e0e0e0; border-radius: 8px; outline: none;
-    margin-bottom: 12px; color: #000; background: #fff;
-  }
-  .admin-pass-input:focus { border-color: #000; }
+  .admin-pass-input { width: 100%; padding: 12px; font-size: 16px; border: 2px solid var(--panel-border); border-radius: 8px; outline: none; margin-bottom: 12px; color: var(--panel-text); background: var(--input-bg); }
+  .admin-pass-input:focus { border-color: var(--accent); }
   .admin-pass-actions { display: flex; gap: 8px; }
-  .admin-pass-actions button {
-    flex: 1; padding: 12px; border-radius: 8px; font-weight: 700;
-    cursor: pointer; font-size: 14px; border: none;
-  }
-  .admin-pass-ok { background: #000; color: #fff; }
-  .admin-pass-ok:hover { background: #222; }
-  .admin-pass-cancel { background: #fff; color: #000; border: 1px solid #e0e0e0 !important; }
-  .admin-pass-cancel:hover { background: #f2f2f2; }
+  .admin-pass-actions button { flex: 1; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 14px; border: none; }
+  .admin-pass-ok { background: var(--accent); color: var(--accent-text); }
+  .admin-pass-cancel { background: var(--panel-bg); color: var(--panel-text); border: 1px solid var(--panel-border) !important; }
   .admin-pass-error { color: #c62828; font-size: 12px; margin-bottom: 8px; display: none; }
   .admin-pass-error.show { display: block; }
+
+  /* Сворачиваемые секции админки */
+  .admin-section-header {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; font-weight: 800; margin-bottom: 8px; cursor: pointer;
+    user-select: none; padding: 4px 0;
+  }
+  .admin-section-header:hover { opacity: 0.8; }
+  .admin-section-header .chevron { transition: transform 0.2s ease; font-size: 14px; }
+  .admin-section-header.collapsed .chevron { transform: rotate(-90deg); }
+  .admin-section-content { display: block; margin-bottom: 16px; }
+  .admin-section-content.hidden { display: none; }
+
+  /* Сетка тем в админке */
+  .admin-themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--panel-border); }
+  .admin-theme-btn { padding: 8px 4px; border: 2px solid var(--panel-border); border-radius: 8px; background: var(--panel-bg); font-size: 10px; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: all 0.15s ease; color: var(--panel-text); }
+  .admin-theme-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+  .admin-theme-btn.active { border-color: var(--accent); background: var(--accent); color: var(--accent-text); }
+  .admin-theme-btn .theme-preview { width: 100%; height: 20px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); }
+  .theme-preview.default { background: linear-gradient(135deg, #f4f6f9 50%, #ffffff 50%); }
+  .theme-preview.newyear { background: linear-gradient(135deg, #0b1a2a 50%, #f8fbff 50%); }
+  .theme-preview.halloween { background: linear-gradient(135deg, #1a0f00 50%, #fff8e7 50%); }
+  .theme-preview.march8 { background: linear-gradient(135deg, #fdf2f8 50%, #fffbfd 50%); }
+  .theme-preview.victory { background: linear-gradient(135deg, #f5f5f0 50%, #fffef9 50%); }
+  .theme-preview.summer { background: linear-gradient(135deg, #e0f7fa 50%, #f0ffff 50%); }
+  .theme-preview.autumn { background: linear-gradient(135deg, #fff3e0 50%, #fffaf0 50%); }
+
+  /* Статистика устройств */
+  .admin-devices { display: grid; gap: 8px; margin-bottom: 8px; }
+  .device-stat { padding: 12px 8px; border: 1px solid var(--panel-border); border-radius: 8px; background: var(--input-bg); text-align: center; }
+  .device-stat-value { font-size: 24px; font-weight: 800; color: var(--accent); line-height: 1.2; margin-bottom: 4px; }
+  .device-stat-label { font-size: 11px; color: #888; font-weight: 600; }
+
+  /* История чеков */
+  .history-list { display: flex; flex-direction: column; gap: 8px; }
+  .history-item { padding: 12px; border: 1px solid var(--panel-border); border-radius: 8px; background: var(--input-bg); cursor: pointer; transition: background var(--anim-fast); }
+  .history-item:hover { background: var(--menu-hover); }
+  .history-item-date { font-size: 12px; color: #888; font-weight: 600; margin-bottom: 4px; }
+  .history-item-sum { font-size: 15px; font-weight: 700; color: var(--panel-text); }
+  .history-empty { text-align: center; color: #888; padding: 24px; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -528,7 +336,6 @@
       <span id="btnMenuText">Меню</span>
     </button>
     
-    <!-- Название: 3 клика для входа в админку -->
     <div class="app-title" id="appTitle">Умный чек покупок</div>
     
     <button class="header-nav-btn" onclick="takeScreenshot()" aria-label="Снимок">
@@ -551,7 +358,7 @@
         <div class="search-section" id="searchSec">
           
           <div class="search-row">
-            <button class="quick-btn" id="quickToggleBtn" onclick="toggleQuickPanel()" title="Быстрые товары">
+            <button class="quick-btn" id="quickToggleBtn" onclick="toggleQuickPanel()" title="Категории">
               <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
             </button>
             <div class="search-box">
@@ -560,6 +367,7 @@
           </div>
 
           <div class="quick-panel" id="quickPanel"></div>
+          
           <div class="catalog" id="catalog"></div>
         </div>
 
@@ -615,6 +423,7 @@
   </div>
 
   <a href="#" data-menu="settings" id="menuSettings">Настройки</a>
+  <a href="#" data-menu="history" id="menuHistory">История чеков</a>
   <a href="#" data-menu="clear" id="menuClear">Очистить чек</a>
   
   <a href="#" data-menu="privacy" id="menuPrivacy">Политика конфиденциальности</a>
@@ -659,6 +468,19 @@
           <span id="langEnLabel">English</span>
         </label>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Модалка истории чеков -->
+<div class="app-modal" id="modalHistory">
+  <div class="app-modal__box">
+    <div class="app-modal__head">
+      <div class="app-modal__title">История чеков</div>
+      <button class="app-modal__close" onclick="closeAppModal('modalHistory')">×</button>
+    </div>
+    <div class="app-modal__body" id="historyBody">
+      <!-- Сюда JS вставит список -->
     </div>
   </div>
 </div>
@@ -716,6 +538,50 @@
       <button class="admin-close" onclick="closeAdminPanel()">×</button>
     </div>
     <div class="admin-body">
+      
+      <!-- СТАТИСТИКА УСТРОЙСТВ -->
+      <div style="font-size: 13px; font-weight: 800; margin-bottom: 8px;">📱 Активность</div>
+      <div class="admin-devices" style="grid-template-columns: 1fr;">
+        <div class="device-stat">
+          <div class="device-stat-value" id="devDay">0</div>
+          <div class="device-stat-label">Устройств за последние 24 часа</div>
+        </div>
+      </div>
+      <div style="border-top: 1px solid var(--panel-border); margin: 16px 0;"></div>
+
+      <!-- СВОРАЧИВАЕМОЕ ОФОРМЛЕНИЕ -->
+      <div class="admin-section-header" id="themeSectionHeader" onclick="toggleAdminSection('themeSection')">
+        <span>🎨 Оформление приложения</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="admin-section-content" id="themeSection">
+        <div class="admin-themes" id="adminThemes">
+          <button class="admin-theme-btn" data-theme="default">
+            <div class="theme-preview default"></div><span>Стандарт</span>
+          </button>
+          <button class="admin-theme-btn" data-theme="newyear">
+            <div class="theme-preview newyear"></div><span>Новый год</span>
+          </button>
+          <button class="admin-theme-btn" data-theme="halloween">
+            <div class="theme-preview halloween"></div><span>Хэллоуин</span>
+          </button>
+          <button class="admin-theme-btn" data-theme="march8">
+            <div class="theme-preview march8"></div><span>8 марта</span>
+          </button>
+          <button class="admin-theme-btn" data-theme="victory">
+            <div class="theme-preview victory"></div><span>9 мая</span>
+          </button>
+          <button class="admin-theme-btn" data-theme="summer">
+            <div class="theme-preview summer"></div><span>Лето</span>
+          </button>
+          <button class="admin-theme-btn" data-theme="autumn">
+            <div class="theme-preview autumn"></div><span>Осень</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ПРОДУКТЫ -->
+      <div style="font-size: 13px; font-weight: 800; margin-bottom: 8px;">📦 Продукты в базе</div>
       <input type="text" class="admin-search" id="adminSearch" placeholder="Поиск по названию, бренду, вкусу...">
       <div class="admin-stats" id="adminStats">Загрузка...</div>
       <div class="admin-list" id="adminList"></div>
@@ -730,7 +596,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, onValue, push, set, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+import { getDatabase, ref, onValue, push, set, remove, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA6QQEiTHsuoAyRXmjg2e4mhD6WKsMRu58",
@@ -745,80 +611,237 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-/* === АДМИНКА: пароль === */
-const ADMIN_PASSWORD = 'nikita097'; // <-- поменяйте при необходимости
+const ADMIN_PASSWORD = '140497';
 let adminClickCount = 0;
 let adminClickTimer = null;
+
+// Список категорий
+const CATEGORIES = [
+  { id: 'all', name: 'Все', svg: '<svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>' },
+  { id: 'dairy', name: 'Молочные', svg: '<svg viewBox="0 0 24 24"><path d="M8 2h8l2 4v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6l2-4zm0 4v14h8V6H8zm2-2h4v2h-4V4z"/></svg>' },
+  { id: 'meat', name: 'Мясо', svg: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>' },
+  { id: 'bakery', name: 'Хлеб', svg: '<svg viewBox="0 0 24 24"><path d="M18 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm-8 2h4v12h-4V6z"/></svg>' },
+  { id: 'vegetables', name: 'Овощи/Фрукты', svg: '<svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 0 0-5 5c0 2.76 2.24 5 5 5s5-2.24 5-5-2.24-5-5-5zm0 12c-4.42 0-8 3.58-8 8h16c0-4.42-3.58-8-8-8z"/></svg>' },
+  { id: 'drinks', name: 'Напитки', svg: '<svg viewBox="0 0 24 24"><path d="M8 2h8l-2 10v8h2v2H8v-2h2v-8L8 2zm4 2l1 5h-2l1-5z"/></svg>' },
+  { id: 'snacks', name: 'Снеки', svg: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-5h2v2h-2zm0-8h2v6h-2z"/></svg>' },
+  { id: 'frozen', name: 'Заморозка', svg: '<svg viewBox="0 0 24 24"><path d="M22 11h-4.17l3.24-3.24-1.41-1.42L15 11h-2V9l4.66-4.66-1.42-1.41L13 6.17V2h-2v4.17L7.76 2.93 6.34 4.34 11 9v2H9L4.34 6.34 2.93 7.76 6.17 11H2v2h4.17l-3.24 3.24 1.41 1.42L9 13h2v2l-4.66 4.66 1.42 1.41L11 17.83V22h2v-4.17l3.24 3.24 1.42-1.41L13 15v-2h2l4.66 4.66 1.41-1.42L17.83 13H22z"/></svg>' },
+  { id: 'sweets', name: 'Сладкое', svg: '<svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/></svg>' },
+  { id: 'other', name: 'Другое', svg: '<svg viewBox="0 0 24 24"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>' }
+];
 
 let globalCatalog = [];
 let currentCurrency = { code: 'RUB', symbol: '₽' };
 let items = [];
 let currentLang = localStorage.getItem('app_lang') || 'ru';
 let editingItemId = null;
-
-const DEFAULT_QUICK_TAGS = ['Хлеб', 'Молоко', 'Мясо', 'Овощи', 'Напитки', 'Снеки'];
+let currentTheme = 'default';
+let currentCategory = 'all';
 
 try { items = JSON.parse(localStorage.getItem('shopping_receipt_v20') || '[]'); } catch (e) {}
 function save() { localStorage.setItem('shopping_receipt_v20', JSON.stringify(items)); }
 
+// === ИСТОРИЯ ЧЕКОВ ===
+let receiptHistory = [];
+try { receiptHistory = JSON.parse(localStorage.getItem('receipt_history_v1') || '[]'); } catch(e) {}
+
+function saveHistory() {
+  localStorage.setItem('receipt_history_v1', JSON.stringify(receiptHistory));
+}
+
+function addToHistory() {
+  if (items.length === 0) return;
+  const total = items.reduce((sum, item) => sum + (item.price * item.qty), 0);
+  receiptHistory.unshift({
+    id: 'h_' + Date.now(),
+    date: Date.now(),
+    total: total,
+    items: JSON.parse(JSON.stringify(items))
+  });
+  if (receiptHistory.length > 50) receiptHistory.pop(); // храним последние 50
+  saveHistory();
+}
+
+function renderHistory() {
+  const body = document.getElementById('historyBody');
+  body.innerHTML = '';
+
+  if (receiptHistory.length === 0) {
+    body.innerHTML = '<div class="history-empty">История пуста. Завершите чек, чтобы он появился здесь.</div>';
+    return;
+  }
+
+  const list = document.createElement('div');
+  list.className = 'history-list';
+
+  receiptHistory.forEach(h => {
+    const item = document.createElement('div');
+    item.className = 'history-item';
+    const date = new Date(h.date).toLocaleString('ru-RU');
+    item.innerHTML = `
+      <div class="history-item-date">${date}</div>
+      <div class="history-item-sum">Сумма: ${formatPrice(h.total)}</div>
+      <div style="font-size: 12px; color: #888; margin-top: 4px;">Позиций: ${h.items.length}</div>
+    `;
+    item.onclick = () => {
+      if (confirm('Загрузить этот чек в текущий список?')) {
+        items = JSON.parse(JSON.stringify(h.items));
+        save(); render();
+        closeAppModal('modalHistory');
+      }
+    };
+    list.appendChild(item);
+  });
+  body.appendChild(list);
+}
+
+// === УЧЁТ УСТРОЙСТВ ===
+const DEVICE_KEY = 'app_device_id';
+let deviceId = localStorage.getItem(DEVICE_KEY);
+if (!deviceId) {
+  deviceId = 'dev_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+  localStorage.setItem(DEVICE_KEY, deviceId);
+}
+
+function registerDevice() {
+  const devRef = ref(db, 'devices/' + deviceId);
+  const now = Date.now();
+  onValue(devRef, (snap) => {
+    const existing = snap.val();
+    set(devRef, {
+      firstSeen: existing?.firstSeen || now,
+      lastSeen: now
+    });
+  }, { onlyOnce: true });
+}
+registerDevice();
+
+setInterval(() => {
+  if (document.visibilityState === 'visible') {
+    update(ref(db, 'devices/' + deviceId), { lastSeen: Date.now() });
+  }
+}, 60000);
+
+let allDevices = [];
+function listenToDevices() {
+  onValue(ref(db, 'devices'), (snapshot) => {
+    const data = snapshot.val() || {};
+    allDevices = Object.values(data);
+    if (document.getElementById('adminPanelModal')?.classList.contains('show')) {
+      renderDevicesStats();
+    }
+  });
+}
+listenToDevices();
+
+function renderDevicesStats() {
+  const now = Date.now();
+  const DAY_MS = 24 * 60 * 60 * 1000;
+  const day = allDevices.filter(d => now - (d.lastSeen || 0) < DAY_MS).length;
+  const dEl = document.getElementById('devDay');
+  if (dEl) dEl.textContent = day;
+}
+
+// === БАЗА ДАННЫХ ПРОДУКТОВ ===
 function listenToGlobalCatalog() {
   const catalogRef = ref(db, 'catalog');
   onValue(catalogRef, (snapshot) => {
     const data = snapshot.val() || {};
     globalCatalog = Object.entries(data).map(([key, val]) => ({
       id: key, name: val.name, name_en: val.name_en || '', brand: val.brand || '', flavor: val.flavor || '',
-      price: val.avgPrice, count: val.count
+      price: val.avgPrice, count: val.count, category: val.category || 'other'
     }));
     renderCatalog(document.getElementById('searchInput').value);
-    renderQuickTags();
-    // если админка открыта — обновим список
     if (document.getElementById('adminPanelModal').classList.contains('show')) {
       renderAdminList();
     }
   });
 }
 
-function renderQuickTags() {
+// === ТЕМЫ ОФОРМЛЕНИЯ ===
+function listenToTheme() {
+  const themeRef = ref(db, 'app_theme');
+  onValue(themeRef, (snapshot) => {
+    const theme = snapshot.val() || 'default';
+    applyTheme(theme);
+  });
+}
+
+function applyTheme(theme) {
+  currentTheme = theme;
+  document.body.classList.remove(
+    'theme-newyear', 'theme-halloween', 'theme-march8',
+    'theme-victory', 'theme-summer', 'theme-autumn'
+  );
+  if (theme && theme !== 'default') {
+    document.body.classList.add('theme-' + theme);
+  }
+  document.querySelectorAll('.admin-theme-btn').forEach(btn => {
+    if (btn.dataset.theme === currentTheme) btn.classList.add('active');
+    else btn.classList.remove('active');
+  });
+}
+
+async function setTheme(theme) {
+  try {
+    await set(ref(db, 'app_theme'), theme);
+  } catch (err) {
+    alert('Ошибка смены темы: ' + err.message + '\n\nПроверьте правила Firebase (write: true).');
+  }
+}
+
+// === ПАНЕЛЬ КАТЕГОРИЙ ===
+function renderQuickPanel() {
   const panel = document.getElementById('quickPanel');
+  if (!panel) return;
   panel.innerHTML = '';
 
-  let tagsToShow = [];
-
-  if (globalCatalog.length > 0) {
-    const sorted = [...globalCatalog].sort((a, b) => b.count - a.count);
-    tagsToShow = sorted.slice(0, 10).map(item => {
-      const name = currentLang === 'en' && item.name_en ? item.name_en : item.name;
-      return name.split(' ')[0];
-    });
-    tagsToShow = [...new Set(tagsToShow)];
-  } else {
-    tagsToShow = DEFAULT_QUICK_TAGS;
-  }
-
-  tagsToShow.forEach(tag => {
+  CATEGORIES.forEach(cat => {
     const btn = document.createElement('button');
-    btn.className = 'quick-tag';
-    btn.textContent = tag;
-    btn.onclick = () => quickAdd(tag);
+    btn.className = 'category-btn';
+    if (currentCategory === cat.id) btn.classList.add('active');
+    btn.innerHTML = `${cat.svg} <span>${cat.name}</span>`;
+    
+    btn.onclick = () => {
+      currentCategory = cat.id;
+      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCatalog(document.getElementById('searchInput').value);
+      toggleQuickPanel();
+    };
+    
     panel.appendChild(btn);
   });
 }
 
+window.toggleQuickPanel = () => {
+  const panel = document.getElementById('quickPanel');
+  const btn = document.getElementById('quickToggleBtn');
+  panel.classList.toggle('show');
+  btn.classList.toggle('active');
+};
+
+// === СВОРАЧИВАНИЕ СЕКЦИЙ АДМИНКИ ===
+window.toggleAdminSection = (id) => {
+  const el = document.getElementById(id);
+  const header = el.previousElementSibling;
+  if (!el || !header) return;
+  el.classList.toggle('hidden');
+  header.classList.toggle('collapsed');
+};
+
+// === ОСТАЛЬНАЯ ЛОГИКА ===
 async function translateText(text, targetLang) {
   if (!text) return text;
   try {
     const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
     const data = await res.json();
     return data[0][0][0];
-  } catch (e) {
-    return text;
-  }
+  } catch (e) { return text; }
 }
 
-async function pushToGlobalCatalog(name, brand, flavor, price) {
+async function pushToGlobalCatalog(name, brand, flavor, price, category = 'other') {
   const cleanName = name.trim().toLowerCase();
   if (!cleanName || price <= 0) return;
-
   const isRussian = /[а-яА-Я]/.test(cleanName);
   const name_en = isRussian ? await translateText(cleanName, 'en') : cleanName;
 
@@ -832,13 +855,13 @@ async function pushToGlobalCatalog(name, brand, flavor, price) {
     const newAvg = ((existing.price * existing.count) + price) / newCount;
     set(ref(db, 'catalog/' + existing.id), {
       name: existing.name, name_en: existing.name_en || name_en, brand: existing.brand || '', flavor: existing.flavor || '',
-      avgPrice: Math.round(newAvg * 100) / 100, count: newCount
+      avgPrice: Math.round(newAvg * 100) / 100, count: newCount, category: existing.category || category
     });
   } else {
     const newRef = push(ref(db, 'catalog'));
     set(newRef, {
       name: cleanName, name_en: name_en, brand: (brand || '').toLowerCase(), flavor: (flavor || '').toLowerCase(),
-      avgPrice: price, count: 1
+      avgPrice: price, count: 1, category: category
     });
   }
 }
@@ -856,58 +879,28 @@ updateDate();
 
 const T = {
   ru: {
-    appTitle: 'Умный чек покупок',
-    menuBtn: 'Меню',
-    snapBtn: 'Снимок',
-    saveBtn: '📸 Сохранить чек', receiptTitle: 'КАССОВЫЙ ЧЕК',
-    searchPlaceholder: 'Поиск продукта...',
-    manualName: 'Название продукта', manualBrand: 'Бренд (необязательно)', manualFlavor: 'Вкус (необязательно)',
-    priceLabel: 'Цена:',
-    btnSubmit: '🛒 Добавить в чек', btnCancel: 'Отмена',
-    totalQtyLabel: 'Итого позиций:', sumAllLabel: 'Сумма без скидки:', sumLeftLabel: 'К оплате:',
-    thanks: 'Спасибо за покупку!', empty: 'Чек пуст', emptyAlert: 'Чек пуст!',
-    nameAlert: 'Введите название продукта', notFound: 'Ничего не найдено',
-    menuTitle: 'Меню', menuSettings: 'Настройки', menuSupport: 'Поддержка',
-    menuClear: 'Очистить чек', menuIdea: 'Поделиться идеей',
-    menuPrivacy: 'Политика конфиденциальности',
-    menuTerms: 'Пользовательское соглашение',
-    settingsTitle: 'Настройки', settingThanks: 'Показывать «Спасибо за покупку!»', settingAutosave: 'Автосохранение чека',
-    languageTitle: 'Язык приложения',
-    langRu: 'Русский', langEn: 'English',
-    priceEditTitle: 'Изменить цену: ', priceEditSave: 'Добавить в чек', priceEditCancel: 'Отмена',
-    newItem: 'новый',
+    appTitle: 'Умный чек покупок', menuBtn: 'Меню', snapBtn: 'Снимок', saveBtn: '📸 Сохранить чек', receiptTitle: 'КАССОВЫЙ ЧЕК',
+    searchPlaceholder: 'Поиск продукта...', manualName: 'Название продукта', manualBrand: 'Бренд (необязательно)', manualFlavor: 'Вкус (необязательно)',
+    priceLabel: 'Цена:', btnSubmit: '🛒 Добавить в чек', btnCancel: 'Отмена', totalQtyLabel: 'Итого позиций:', sumAllLabel: 'Сумма без скидки:', sumLeftLabel: 'К оплате:',
+    thanks: 'Спасибо за покупку!', empty: 'Чек пуст', emptyAlert: 'Чек пуст!', nameAlert: 'Введите название продукта', notFound: 'Ничего не найдено',
+    menuTitle: 'Меню', menuSettings: 'Настройки', menuSupport: 'Поддержка', menuClear: 'Очистить чек', menuIdea: 'Поделиться идеей',
+    menuPrivacy: 'Политика конфиденциальности', menuTerms: 'Пользовательское соглашение', menuHistory: 'История чеков',
+    settingsTitle: 'Настройки', settingThanks: 'Показывать «Спасибо за покупку!»', settingAutosave: 'Автосохранение чека', languageTitle: 'Язык приложения',
+    langRu: 'Русский', langEn: 'English', priceEditTitle: 'Изменить цену: ', priceEditSave: 'Добавить в чек', priceEditCancel: 'Отмена', newItem: 'новый',
     disclaimer: '* Цены являются примерными и могут отличаться от реальных в магазине',
-    privacyTitle: 'Политика конфиденциальности',
-    privacyText: '<p>Настоящая Политика конфиденциальности описывает, как приложение «Умный чек покупок» собирает, использует и защищает информацию пользователей.</p><p>1. Мы не собираем персональные данные (имя, телефон, адрес).</p><p>2. Данные о покупках и ценах хранятся в обезличенном виде и используются только для формирования средних цен.</p><p>3. Приложение использует сторонние сервисы (Firebase) для хранения базы продуктов. Эти сервисы имеют свои политики конфиденциальности.</p><p>4. Мы не передаем ваши данные третьим лицам.</p><p>5. По любым вопросам обращайтесь: umpelevnikita@yandex.ru</p>',
-    termsTitle: 'Пользовательское соглашение',
-    termsText: '<p>Используя приложение «Умный чек покупок», вы соглашаетесь с условиями:</p><p>1. Приложение предоставляется «как есть».</p><p>2. Цены являются примерными и могут не совпадать с реальными ценами в магазинах.</p><p>3. Пользователь несет ответственность за вводимые данные.</p><p>4. Мы оставляем за собой право изменять функционал приложения.</p>'
+    privacyTitle: 'Политика конфиденциальности', privacyText: '<p>...</p>', termsTitle: 'Пользовательское соглашение', termsText: '<p>...</p>'
   },
   en: {
-    appTitle: 'Smart Receipt',
-    menuBtn: 'Menu',
-    snapBtn: 'Snap',
-    saveBtn: '📸 Save receipt', receiptTitle: 'CASH RECEIPT',
-    searchPlaceholder: 'Search product...',
-    manualName: 'Product name', manualBrand: 'Brand (optional)', manualFlavor: 'Flavor (optional)',
-    priceLabel: 'Price:',
-    btnSubmit: '🛒 Add to receipt', btnCancel: 'Cancel',
-    totalQtyLabel: 'Total items:', sumAllLabel: 'Subtotal:', sumLeftLabel: 'Total to pay:',
-    thanks: 'Thank you for your purchase!', empty: 'Receipt is empty', emptyAlert: 'Receipt is empty!',
-    nameAlert: 'Please enter a product name', notFound: 'Nothing found',
-    menuTitle: 'Menu', menuSettings: 'Settings', menuSupport: 'Support',
-    menuClear: 'Clear receipt', menuIdea: 'Share an idea',
-    menuPrivacy: 'Privacy Policy',
-    menuTerms: 'Terms of Service',
-    settingsTitle: 'Settings', settingThanks: 'Show "Thank you for your purchase!"', settingAutosave: 'Receipt autosave',
-    languageTitle: 'App language',
-    langRu: 'Русский', langEn: 'English',
-    priceEditTitle: 'Edit price: ', priceEditSave: 'Add to receipt', priceEditCancel: 'Cancel',
-    newItem: 'new',
+    appTitle: 'Smart Receipt', menuBtn: 'Menu', snapBtn: 'Snap', saveBtn: '📸 Save receipt', receiptTitle: 'CASH RECEIPT',
+    searchPlaceholder: 'Search product...', manualName: 'Product name', manualBrand: 'Brand (optional)', manualFlavor: 'Flavor (optional)',
+    priceLabel: 'Price:', btnSubmit: '🛒 Add to receipt', btnCancel: 'Cancel', totalQtyLabel: 'Total items:', sumAllLabel: 'Subtotal:', sumLeftLabel: 'Total to pay:',
+    thanks: 'Thank you for your purchase!', empty: 'Receipt is empty', emptyAlert: 'Receipt is empty!', nameAlert: 'Please enter a product name', notFound: 'Nothing found',
+    menuTitle: 'Menu', menuSettings: 'Settings', menuSupport: 'Support', menuClear: 'Clear receipt', menuIdea: 'Share an idea',
+    menuPrivacy: 'Privacy Policy', menuTerms: 'Terms of Service', menuHistory: 'History',
+    settingsTitle: 'Settings', settingThanks: 'Show "Thank you for your purchase!"', settingAutosave: 'Receipt autosave', languageTitle: 'App language',
+    langRu: 'Русский', langEn: 'English', priceEditTitle: 'Edit price: ', priceEditSave: 'Add to receipt', priceEditCancel: 'Cancel', newItem: 'new',
     disclaimer: '* Prices are approximate and may differ from actual store prices',
-    privacyTitle: 'Privacy Policy',
-    privacyText: '<p>This Privacy Policy describes how the "Smart Receipt" app collects, uses, and protects user information.</p><p>1. We do not collect personal data (name, phone, address).</p><p>2. Purchase and price data is stored anonymously and used only to calculate average prices.</p><p>3. The app uses third-party services (Firebase) to store the product database. These services have their own privacy policies.</p><p>4. We do not share your data with third parties.</p><p>5. For any questions, contact: umpelevnikita@yandex.ru</p>',
-    termsTitle: 'Terms of Service',
-    termsText: '<p>By using the "Smart Receipt" app, you agree to the following terms:</p><p>1. The app is provided "as is".</p><p>2. Prices are approximate and may not match actual store prices.</p><p>3. The user is responsible for the data entered.</p><p>4. We reserve the right to change the functionality of the app.</p>'
+    privacyTitle: 'Privacy Policy', privacyText: '<p>...</p>', termsTitle: 'Terms of Service', termsText: '<p>...</p>'
   }
 };
 function t(key) { return (T[currentLang] && T[currentLang][key]) || T.ru[key] || key; }
@@ -916,12 +909,10 @@ function applyLanguage(lang) {
   currentLang = lang;
   localStorage.setItem('app_lang', lang);
   document.documentElement.lang = lang;
-
   document.getElementById('appTitle').textContent = t('appTitle');
   document.getElementById('btnMenuText').textContent = t('menuBtn');
   document.getElementById('btnSnapText').textContent = t('snapBtn');
   document.getElementById('receiptTitle').textContent = t('receiptTitle');
-
   document.getElementById('searchInput').placeholder = t('searchPlaceholder');
   document.getElementById('mName').placeholder = t('manualName');
   document.getElementById('mBrand').placeholder = t('manualBrand');
@@ -929,57 +920,35 @@ function applyLanguage(lang) {
   document.getElementById('priceLabel').textContent = t('priceLabel');
   document.getElementById('btnSubmit').textContent = t('btnSubmit');
   document.getElementById('btnCancel').textContent = t('btnCancel');
-
   document.getElementById('totalQtyLabel').textContent = t('totalQtyLabel');
   document.getElementById('sumAllLabel').textContent = t('sumAllLabel');
   document.getElementById('sumLeftLabel').textContent = t('sumLeftLabel');
   document.getElementById('thanksEl').textContent = t('thanks');
   document.getElementById('receiptDisclaimer').textContent = t('disclaimer');
-
   document.getElementById('menuTitle').textContent = t('menuTitle');
   document.getElementById('menuSettings').textContent = t('menuSettings');
+  document.getElementById('menuHistory').textContent = t('menuHistory');
   document.getElementById('menuClear').textContent = t('menuClear');
   document.getElementById('menuSupport').textContent = t('menuSupport');
   document.getElementById('menuIdea').textContent = t('menuIdea');
   document.getElementById('menuPrivacy').textContent = t('menuPrivacy');
   document.getElementById('menuTerms').textContent = t('menuTerms');
-
   document.getElementById('settingsTitle').textContent = t('settingsTitle');
   document.getElementById('settingThanksLabel').textContent = t('settingThanks');
   document.getElementById('settingAutosaveLabel').textContent = t('settingAutosave');
-  
   document.getElementById('languageTitle').textContent = t('languageTitle');
   document.getElementById('langRuLabel').textContent = t('langRu');
   document.getElementById('langEnLabel').textContent = t('langEn');
-
   document.getElementById('priceEditSave').textContent = t('priceEditSave');
   document.getElementById('priceEditCancel').textContent = t('priceEditCancel');
-
   document.getElementById('privacyTitle').textContent = t('privacyTitle');
   document.getElementById('privacyText').innerHTML = t('privacyText');
-  
   document.getElementById('termsTitle').textContent = t('termsTitle');
   document.getElementById('termsText').innerHTML = t('termsText');
-
-  renderQuickTags();
+  renderQuickPanel();
   updateDate();
   renderCatalog(document.getElementById('searchInput').value);
   render();
-}
-
-window.toggleQuickPanel = () => {
-  const panel = document.getElementById('quickPanel');
-  const btn = document.getElementById('quickToggleBtn');
-  panel.classList.toggle('show');
-  btn.classList.toggle('active');
-}
-
-window.quickAdd = (category) => {
-  const searchInput = document.getElementById('searchInput');
-  searchInput.value = category;
-  renderCatalog(category);
-  toggleQuickPanel();
-  searchInput.focus();
 }
 
 const searchInput = document.getElementById('searchInput');
@@ -988,28 +957,26 @@ const catalogEl = document.getElementById('catalog');
 window.renderCatalog = function(filter = '') {
   catalogEl.innerHTML = '';
   const q = filter.trim().toLowerCase();
-
   let allItems = [...globalCatalog];
 
   const filtered = allItems
     .filter(item => {
+      const matchCategory = currentCategory === 'all' || item.category === currentCategory;
       const searchStr = (item.name + ' ' + (item.name_en || '') + ' ' + (item.brand || '') + ' ' + (item.flavor || '')).toLowerCase();
-      return searchStr.includes(q);
+      return matchCategory && searchStr.includes(q);
     })
     .sort((a, b) => b.count - a.count);
 
   if (filtered.length === 0) {
     catalogEl.innerHTML = `<div class="catalog-empty">${t('notFound')}</div>`;
-
     if (q.length > 0) {
-      if (!manualInput.classList.contains('show')) {
-        manualInput.classList.add('show');
-        manualInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const mi = document.getElementById('manualInput');
+      if (!mi.classList.contains('show')) {
+        mi.classList.add('show');
+        mi.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
       const nameEl = document.getElementById('mName');
-      if (nameEl.value !== q) {
-        nameEl.value = q;
-      }
+      if (nameEl.value !== q) nameEl.value = q;
     }
     return;
   }
@@ -1017,83 +984,70 @@ window.renderCatalog = function(filter = '') {
   filtered.forEach(item => {
     const div = document.createElement('div');
     div.className = 'catalog-item';
-    
     const details = [item.brand, item.flavor].filter(Boolean).join(', ');
     const detailsHtml = details ? `<span class="catalog-details">${details}</span>` : '';
     const priceText = formatPrice(item.price);
-      
     const countText = `<span style="font-size:10px;color:#aaa;margin-left:6px;">(${item.count})</span>`;
-
     const displayName = currentLang === 'en' && item.name_en ? item.name_en : item.name;
     const originalName = currentLang === 'en' && item.name_en && item.name !== item.name_en ? ` <span style="font-size:10px;color:#aaa;">(${item.name})</span>` : '';
-
     div.innerHTML = `
       <span class="catalog-name">${displayName}${originalName}${detailsHtml}${countText}</span>
       <span class="price">${priceText}</span>
     `;
     div.onclick = () => {
-      addFromCatalog(displayName, item.brand, item.flavor, item.price);
+      items.push({
+        id: 'i_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
+        text: displayName, brand: item.brand, flavor: item.flavor, price: item.price, qty: 1, unit: 'pcs', isNew: false, done: false, photo: null, createdAt: Date.now()
+      });
+      save(); render(); searchInput.value = ''; renderCatalog(''); searchInput.blur();
     };
     catalogEl.appendChild(div);
   });
-}
+};
 
 searchInput.addEventListener('input', (e) => renderCatalog(e.target.value));
 
-function addFromCatalog(name, brand, flavor, price) {
-  items.push({
-    id: 'i_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
-    text: name, brand: brand || '', flavor: flavor || '',
-    price: price, qty: 1, unit: 'pcs', isNew: false,
-    done: false, photo: null, createdAt: Date.now()
-  });
-  save(); render(); searchInput.value = ''; renderCatalog(''); searchInput.blur();
-}
-
-const manualInput = document.getElementById('manualInput');
-const mPrice = document.getElementById('mPrice');
-const mPriceRange = document.getElementById('mPriceRange');
-
 window.toggleManualInput = (show = null) => {
-  if (show === null) show = !manualInput.classList.contains('show');
+  const mi = document.getElementById('manualInput');
+  if (show === null) show = !mi.classList.contains('show');
   if (show) {
-    manualInput.classList.add('show');
-    manualInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    mi.classList.add('show');
+    mi.scrollIntoView({ behavior: 'smooth', block: 'center' });
     setTimeout(() => document.getElementById('mName').focus(), 100);
   } else {
-    manualInput.classList.remove('show');
+    mi.classList.remove('show');
     document.getElementById('mName').value = '';
     document.getElementById('mBrand').value = '';
     document.getElementById('mFlavor').value = '';
-    mPrice.value = '0'; mPriceRange.value = '0';
+    document.getElementById('mPrice').value = '0';
+    document.getElementById('mPriceRange').value = '0';
     document.activeElement.blur();
   }
 };
 
-mPriceRange.addEventListener('input', (e) => mPrice.value = e.target.value);
-mPrice.addEventListener('input', (e) => {
+document.getElementById('mPriceRange').addEventListener('input', (e) => document.getElementById('mPrice').value = e.target.value);
+document.getElementById('mPrice').addEventListener('input', (e) => {
   let val = parseFloat(e.target.value) || 0;
   if (val < 0) val = 0;
-  if (val > parseFloat(mPriceRange.max)) mPriceRange.max = Math.ceil(val / 100) * 100;
-  mPriceRange.value = val;
+  if (val > parseFloat(document.getElementById('mPriceRange').max)) document.getElementById('mPriceRange').max = Math.ceil(val / 100) * 100;
+  document.getElementById('mPriceRange').value = val;
 });
 
 window.addManualItem = () => {
   const name = document.getElementById('mName').value.trim();
   const brand = document.getElementById('mBrand').value.trim();
   const flavor = document.getElementById('mFlavor').value.trim();
-  const price = parseFloat(mPrice.value) || 0;
+  const price = parseFloat(document.getElementById('mPrice').value) || 0;
   if (!name) { alert(t('nameAlert')); return; }
 
   items.push({
     id: 'i_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
-    text: name, brand, flavor, price, qty: 1, unit: 'pcs', isNew: true,
-    done: false, photo: null, createdAt: Date.now()
+    text: name, brand, flavor, price, qty: 1, unit: 'pcs', isNew: true, done: false, photo: null, createdAt: Date.now()
   });
-  if (price > 0) pushToGlobalCatalog(name, brand, flavor, price);
+  const catToSave = currentCategory === 'all' ? 'other' : currentCategory;
+  if (price > 0) pushToGlobalCatalog(name, brand, flavor, price, catToSave);
 
   save(); render();
-
   toggleManualInput(false);
   searchInput.value = '';
   renderCatalog('');
@@ -1107,11 +1061,7 @@ function removeItem(id) { items = items.filter(x => x.id !== id); save(); render
 
 window.changeItemQty = (id, delta) => {
   const it = items.find(x => x.id === id);
-  if (it) {
-    it.qty = (it.qty || 1) + delta;
-    if (it.qty < 1) it.qty = 1;
-    save(); render();
-  }
+  if (it) { it.qty = (it.qty || 1) + delta; if (it.qty < 1) it.qty = 1; save(); render(); }
 }
 
 const priceEditModal = document.getElementById('priceEditModal');
@@ -1122,18 +1072,13 @@ window.openPriceEdit = (id) => {
   const it = items.find(x => x.id === id);
   if (!it) return;
   editingItemId = id;
-
   priceEditTitle.textContent = t('priceEditTitle') + it.text;
   priceEditInput.value = Number(it.price) || 0;
-  
   priceEditModal.classList.add('show');
   setTimeout(() => { priceEditInput.focus(); priceEditInput.select(); }, 50);
 };
 
-function closePriceEdit() {
-  priceEditModal.classList.remove('show');
-  editingItemId = null;
-}
+function closePriceEdit() { priceEditModal.classList.remove('show'); editingItemId = null; }
 
 function applyPriceEdit() {
   if (!editingItemId) return;
@@ -1141,12 +1086,9 @@ function applyPriceEdit() {
   if (!it) { closePriceEdit(); return; }
   const val = parseFloat(priceEditInput.value);
   if (isNaN(val) || val < 0) { closePriceEdit(); return; }
-
   it.price = Math.round(val * 100) / 100;
-  if (it.price > 0) pushToGlobalCatalog(it.text, it.brand, it.flavor, it.price);
-  
+  if (it.price > 0) pushToGlobalCatalog(it.text, it.brand, it.flavor, it.price, it.category || 'other');
   it.isNew = false;
-  
   save(); render();
   closePriceEdit();
 }
@@ -1155,7 +1097,7 @@ document.getElementById('priceEditSave').onclick = () => applyPriceEdit();
 document.getElementById('priceEditCancel').onclick = closePriceEdit;
 priceEditModal.addEventListener('click', (e) => { if (e.target === priceEditModal) closePriceEdit(); });
 priceEditInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') applyPriceEdit(); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closePriceEdit(); } });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePriceEdit(); });
 
 window.render = function() {
   const list = document.getElementById('list');
@@ -1173,7 +1115,6 @@ window.render = function() {
     const price = Number(item.price) || 0;
     const qty = Number(item.qty) || 1;
     const itemTotal = price * qty;
-
     sumAll += itemTotal; totalQty += qty;
     if (!item.done) sumLeft += itemTotal;
 
@@ -1228,7 +1169,7 @@ window.render = function() {
 
     calcRow.innerHTML = `
       <span class="calc-left">
-        ${qty} ${t('qtyShort')} ×
+        ${qty} ${t('qtyShort') || 'шт'} ×
         <button class="item-price-btn" onclick="event.stopPropagation(); window.openPriceEdit('${item.id}')">${formatPrice(price)} ✎</button>
       </span>
       <span class="item-total">${formatPrice(itemTotal)}</span>
@@ -1252,16 +1193,12 @@ function formatPrice(n) {
 
 window.takeScreenshot = function() {
   if (items.length === 0) { alert(t('emptyAlert')); return; }
-  
   document.body.classList.remove('screenshot-blur');
-  
   const original = document.getElementById('receiptToCapture');
   const clone = original.cloneNode(true);
   clone.id = 'tempReceiptForScreenshot';
-  
   const catalogWrapper = clone.querySelector('.catalog-wrapper');
   if (catalogWrapper) catalogWrapper.remove();
-  
   clone.style.position = 'fixed';
   clone.style.left = '-9999px';
   clone.style.top = '0';
@@ -1270,7 +1207,6 @@ window.takeScreenshot = function() {
   clone.style.boxShadow = 'none';
   clone.style.margin = '0';
   clone.style.animation = 'none';
-  
   document.body.appendChild(clone);
 
   setTimeout(() => {
@@ -1279,15 +1215,8 @@ window.takeScreenshot = function() {
       document.body.removeChild(clone);
       return;
     }
-
-    html2canvas(clone, { 
-      scale: 2, 
-      backgroundColor: '#ffffff', 
-      useCORS: true, 
-      logging: false
-    }).then(canvas => {
+    html2canvas(clone, { scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false }).then(canvas => {
       document.body.removeChild(clone);
-      
       const link = document.createElement('a');
       const dateStr = new Date().toLocaleDateString(currentLang === 'en' ? 'en-GB' : 'ru-RU').replace(/[\.\/]/g, '-');
       link.download = (currentLang === 'en' ? 'Receipt_' : 'Чек_') + dateStr + '.png';
@@ -1302,48 +1231,32 @@ window.takeScreenshot = function() {
 
 let blurTimer = null;
 const BLUR_DURATION = 300;
-
 function triggerScreenshotBlur(duration = BLUR_DURATION) {
   document.body.classList.add('screenshot-blur');
   clearTimeout(blurTimer);
-  blurTimer = setTimeout(() => {
-    document.body.classList.remove('screenshot-blur');
-  }, duration);
+  blurTimer = setTimeout(() => { document.body.classList.remove('screenshot-blur'); }, duration);
 }
 
 document.addEventListener('contextmenu', (e) => { e.preventDefault(); return false; });
-
-document.addEventListener('copy', (e) => {
-  const sel = window.getSelection();
-  if (sel && sel.toString().length > 0) e.preventDefault();
-});
-
+document.addEventListener('copy', (e) => { const sel = window.getSelection(); if (sel && sel.toString().length > 0) e.preventDefault(); });
 document.addEventListener('keydown', (e) => {
   const isPrint = e.key === 'PrintScreen';
   const isCtrlShiftS = (e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'S' || e.key === 's');
   const isCtrlP = (e.ctrlKey || e.metaKey) && (e.key === 'P' || e.key === 'p');
-
   if (isPrint || isCtrlShiftS) {
     e.preventDefault();
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText('Скриншот запрещён').catch(() => {});
-    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText('Скриншот запрещён').catch(() => {});
     triggerScreenshotBlur();
     return false;
   }
   if (isCtrlP) { e.preventDefault(); return false; }
 });
-
 window.addEventListener('blur', () => { triggerScreenshotBlur(); });
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) triggerScreenshotBlur();
-});
+document.addEventListener('visibilitychange', () => { if (document.hidden) triggerScreenshotBlur(); });
 window.addEventListener('pagehide', () => { triggerScreenshotBlur(); });
 window.addEventListener('pageshow', () => { document.body.classList.remove('screenshot-blur'); });
 document.addEventListener('mouseleave', () => { triggerScreenshotBlur(); });
-document.addEventListener('keyup', (e) => {
-  if (e.key === 'PrintScreen') triggerScreenshotBlur();
-});
+document.addEventListener('keyup', (e) => { if (e.key === 'PrintScreen') triggerScreenshotBlur(); });
 
 const menuBtn = document.getElementById('menuBtn');
 const closeBtn = document.getElementById('closeBtn');
@@ -1386,10 +1299,12 @@ document.querySelectorAll('.side-menu a[data-menu]').forEach(link => {
     e.preventDefault();
     const key = link.dataset.menu;
     if (key === 'settings') openAppModal('modalSettings');
+    if (key === 'history') { renderHistory(); openAppModal('modalHistory'); }
     if (key === 'privacy') openAppModal('modalPrivacy');
     if (key === 'terms') openAppModal('modalTerms');
     if (key === 'clear') {
       if (confirm(currentLang === 'en' ? 'Clear receipt?' : 'Очистить чек?')) {
+        if (items.length > 0) addToHistory();
         items = [];
         save(); render();
         closeMenu();
@@ -1399,14 +1314,10 @@ document.querySelectorAll('.side-menu a[data-menu]').forEach(link => {
 });
 
 document.querySelectorAll('.app-modal').forEach(modal => {
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.classList.remove('show');
-  });
+  modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('show'); });
 });
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.app-modal.show').forEach(m => m.classList.remove('show'));
-  }
+  if (e.key === 'Escape') document.querySelectorAll('.app-modal.show').forEach(m => m.classList.remove('show'));
 });
 
 const settingThanks   = document.getElementById('settingThanks');
@@ -1417,10 +1328,7 @@ if (savedSettings.thanks === false) settingThanks.checked = false;
 if (savedSettings.autosave === false) settingAutosave.checked = false;
 
 function persistSettings() {
-  localStorage.setItem('app_settings', JSON.stringify({
-    thanks: settingThanks.checked,
-    autosave: settingAutosave.checked
-  }));
+  localStorage.setItem('app_settings', JSON.stringify({ thanks: settingThanks.checked, autosave: settingAutosave.checked }));
   applySettings();
 }
 function applySettings() {
@@ -1433,16 +1341,10 @@ applySettings();
 
 document.querySelectorAll('input[name="lang"]').forEach(r => {
   if (r.value === currentLang) r.checked = true;
-  r.addEventListener('change', () => {
-    applyLanguage(r.value);
-    closeAppModal('modalSettings');
-  });
+  r.addEventListener('change', () => { applyLanguage(r.value); closeAppModal('modalSettings'); });
 });
 
-/* ===================================================== */
-/* === АДМИНКА: логика 3 кликов и ввода пароля ========== */
-/* ===================================================== */
-
+/* === АДМИНКА === */
 const appTitleEl = document.getElementById('appTitle');
 const adminPassModal = document.getElementById('adminPassModal');
 const adminPassInput = document.getElementById('adminPassInput');
@@ -1452,16 +1354,11 @@ const adminListEl = document.getElementById('adminList');
 const adminStatsEl = document.getElementById('adminStats');
 const adminSearchEl = document.getElementById('adminSearch');
 
-// 3 клика по названию
 appTitleEl.addEventListener('click', () => {
   adminClickCount++;
   clearTimeout(adminClickTimer);
-  adminClickTimer = setTimeout(() => { adminClickCount = 0; }, 800); // сброс через 800мс
-
-  if (adminClickCount >= 3) {
-    adminClickCount = 0;
-    openAdminPass();
-  }
+  adminClickTimer = setTimeout(() => { adminClickCount = 0; }, 800);
+  if (adminClickCount >= 3) { adminClickCount = 0; openAdminPass(); }
 });
 
 function openAdminPass() {
@@ -1478,8 +1375,8 @@ window.closeAdminPass = function() {
 };
 
 window.submitAdminPass = function() {
-  const val = adminPassInput.value;
-  if (val === ADMIN_PASSWORD) {
+  if (adminPassInput.value === ADMIN_PASSWORD) {
+    adminPassInput.blur(); // Убираем клавиатуру
     closeAdminPass();
     openAdminPanel();
   } else {
@@ -1493,41 +1390,29 @@ adminPassInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') submitAdminPass();
   if (e.key === 'Escape') closeAdminPass();
 });
-
-adminPassModal.addEventListener('click', (e) => {
-  if (e.target === adminPassModal) closeAdminPass();
-});
+adminPassModal.addEventListener('click', (e) => { if (e.target === adminPassModal) closeAdminPass(); });
 
 function openAdminPanel() {
   adminPanelModal.classList.add('show');
   adminSearchEl.value = '';
   renderAdminList();
+  renderDevicesStats();
+  applyTheme(currentTheme);
   setTimeout(() => adminSearchEl.focus(), 100);
 }
-
-window.closeAdminPanel = function() {
-  adminPanelModal.classList.remove('show');
-};
-
-adminPanelModal.addEventListener('click', (e) => {
-  if (e.target === adminPanelModal) closeAdminPanel();
-});
-
+window.closeAdminPanel = function() { adminPanelModal.classList.remove('show'); };
+adminPanelModal.addEventListener('click', (e) => { if (e.target === adminPanelModal) closeAdminPanel(); });
 adminSearchEl.addEventListener('input', () => renderAdminList());
 
 function renderAdminList() {
   const q = adminSearchEl.value.trim().toLowerCase();
-
-  // Сортируем по count (убывание), чтобы популярные сверху
   const sorted = [...globalCatalog].sort((a, b) => b.count - a.count);
-
   const filtered = sorted.filter(item => {
     const str = (item.name + ' ' + (item.name_en || '') + ' ' + (item.brand || '') + ' ' + (item.flavor || '')).toLowerCase();
     return str.includes(q);
   });
 
   adminStatsEl.textContent = `Всего в базе: ${globalCatalog.length} · Показано: ${filtered.length}`;
-
   adminListEl.innerHTML = '';
 
   if (filtered.length === 0) {
@@ -1538,43 +1423,55 @@ function renderAdminList() {
   filtered.forEach(item => {
     const row = document.createElement('div');
     row.className = 'admin-item';
-
     const detailsParts = [];
     if (item.brand) detailsParts.push(`Бренд: ${item.brand}`);
     if (item.flavor) detailsParts.push(`Вкус: ${item.flavor}`);
     if (item.name_en && item.name_en !== item.name) detailsParts.push(`EN: ${item.name_en}`);
     detailsParts.push(`Добавлений: ${item.count}`);
 
+    const catOptions = CATEGORIES.filter(c => c.id !== 'all').map(c => 
+      `<option value="${c.id}" ${item.category === c.id ? 'selected' : ''}>${c.name}</option>`
+    ).join('');
+
     row.innerHTML = `
       <div class="admin-item-info">
         <div class="admin-item-name">${item.name}</div>
         <div class="admin-item-details">${detailsParts.join(' · ')}</div>
       </div>
+      <select class="admin-category-select" data-id="${item.id}">
+        ${catOptions}
+      </select>
       <div class="admin-item-price">${formatPrice(item.price)}</div>
       <button class="admin-item-del" title="Удалить из базы">×</button>
     `;
 
-    const delBtn = row.querySelector('.admin-item-del');
-    delBtn.onclick = () => {
-      const ok = confirm(`Удалить «${item.name}» из базы?\nЭто действие необратимо.`);
-      if (!ok) return;
-      remove(ref(db, 'catalog/' + item.id))
+    const select = row.querySelector('.admin-category-select');
+    select.addEventListener('change', (e) => {
+      const newCategory = e.target.value;
+      update(ref(db, 'catalog/' + item.id), { category: newCategory })
         .then(() => {
-          // список обновится автоматически через onValue
+          item.category = newCategory;
+          renderCatalog(document.getElementById('searchInput').value);
         })
-        .catch(err => {
-          alert('Ошибка удаления: ' + err.message);
-        });
-    };
+        .catch(err => alert('Ошибка при смене категории: ' + err.message));
+    });
 
+    row.querySelector('.admin-item-del').onclick = () => {
+      if (!confirm(`Удалить «${item.name}» из базы?\nЭто действие необратимо.`)) return;
+      remove(ref(db, 'catalog/' + item.id)).catch(err => alert('Ошибка удаления: ' + err.message));
+    };
     adminListEl.appendChild(row);
   });
 }
 
-/* ===================================================== */
+document.querySelectorAll('.admin-theme-btn').forEach(btn => {
+  btn.addEventListener('click', () => setTheme(btn.dataset.theme));
+});
 
+/* === СТАРТ === */
 listenToGlobalCatalog();
+listenToTheme();
 applyLanguage(currentLang);
 </script>
 </body>
-           </html>
+</html>
