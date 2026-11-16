@@ -88,6 +88,8 @@
     flex: 1;
     white-space: normal;
     word-break: break-word;
+    cursor: default;
+    user-select: none; /* чтобы клики не выделяли текст */
   }
 
   .receipt-wrapper { width: 100%; max-width: 420px; }
@@ -436,6 +438,84 @@
   .price-edit-save { padding: 12px; background: #4caf50; color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: background var(--anim-fast); }
   .price-edit-save:hover { background: #43a047; }
   .price-edit-cancel { padding: 12px; background: #fff; color: #000; border: 1px solid #e0e0e0; border-radius: 8px; font-weight: 700; cursor: pointer; }
+
+  /* === АДМИНКА === */
+  .admin-modal {
+    position: fixed; inset: 0; background: var(--menu-overlay);
+    display: none; align-items: center; justify-content: center;
+    z-index: 500; padding: 16px;
+  }
+  .admin-modal.show { display: flex; animation: fadeIn var(--anim-fast); }
+  .admin-box {
+    width: 100%; max-width: 480px; background: #fff; color: #000;
+    border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    display: flex; flex-direction: column; max-height: 88vh;
+    animation: slideUp var(--anim-fast);
+    overflow: hidden;
+  }
+  .admin-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; border-bottom: 1px solid #eaeaea; flex-shrink: 0;
+  }
+  .admin-title { font-size: 16px; font-weight: 800; }
+  .admin-close {
+    width: 32px; height: 32px; border: none; background: transparent;
+    font-size: 22px; line-height: 1; cursor: pointer; border-radius: 8px;
+  }
+  .admin-close:hover { background: #f2f2f2; }
+  .admin-body { padding: 12px 16px; overflow-y: auto; flex: 1; }
+  .admin-search {
+    width: 100%; padding: 10px 12px; border: 2px solid #e0e0e0; border-radius: 8px;
+    font-size: 14px; outline: none; margin-bottom: 10px;
+  }
+  .admin-search:focus { border-color: #000; }
+  .admin-stats {
+    font-size: 12px; color: #666; margin-bottom: 10px; font-weight: 600;
+  }
+  .admin-list { display: flex; flex-direction: column; gap: 6px; }
+  .admin-item {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 8px;
+    background: #fafafa;
+  }
+  .admin-item-info { flex: 1; min-width: 0; }
+  .admin-item-name { font-weight: 700; font-size: 14px; word-break: break-word; }
+  .admin-item-details { font-size: 11px; color: #888; margin-top: 2px; }
+  .admin-item-price { font-weight: 700; font-size: 13px; white-space: nowrap; }
+  .admin-item-del {
+    width: 32px; height: 32px; flex-shrink: 0;
+    background: #ffebee; color: #c62828; border: none; border-radius: 8px;
+    font-size: 18px; font-weight: 700; cursor: pointer;
+    transition: background var(--anim-fast);
+  }
+  .admin-item-del:hover { background: #ffcdd2; }
+  .admin-empty { text-align: center; color: #888; padding: 24px; font-size: 13px; }
+
+  /* Форма ввода пароля */
+  .admin-pass-box {
+    width: 100%; max-width: 340px; background: #fff; color: #000;
+    border-radius: 14px; padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    animation: slideUp var(--anim-fast);
+  }
+  .admin-pass-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+  .admin-pass-sub { font-size: 12px; color: #888; margin-bottom: 14px; }
+  .admin-pass-input {
+    width: 100%; padding: 12px; font-size: 16px;
+    border: 2px solid #e0e0e0; border-radius: 8px; outline: none;
+    margin-bottom: 12px; color: #000; background: #fff;
+  }
+  .admin-pass-input:focus { border-color: #000; }
+  .admin-pass-actions { display: flex; gap: 8px; }
+  .admin-pass-actions button {
+    flex: 1; padding: 12px; border-radius: 8px; font-weight: 700;
+    cursor: pointer; font-size: 14px; border: none;
+  }
+  .admin-pass-ok { background: #000; color: #fff; }
+  .admin-pass-ok:hover { background: #222; }
+  .admin-pass-cancel { background: #fff; color: #000; border: 1px solid #e0e0e0 !important; }
+  .admin-pass-cancel:hover { background: #f2f2f2; }
+  .admin-pass-error { color: #c62828; font-size: 12px; margin-bottom: 8px; display: none; }
+  .admin-pass-error.show { display: block; }
 </style>
 </head>
 <body>
@@ -448,6 +528,7 @@
       <span id="btnMenuText">Меню</span>
     </button>
     
+    <!-- Название: 3 клика для входа в админку -->
     <div class="app-title" id="appTitle">Умный чек покупок</div>
     
     <button class="header-nav-btn" onclick="takeScreenshot()" aria-label="Снимок">
@@ -478,10 +559,7 @@
             </div>
           </div>
 
-          <div class="quick-panel" id="quickPanel">
-            <!-- JS заполнит -->
-          </div>
-
+          <div class="quick-panel" id="quickPanel"></div>
           <div class="catalog" id="catalog"></div>
         </div>
 
@@ -569,9 +647,7 @@
         <span id="settingAutosaveLabel">Автосохранение чека</span>
         <input type="checkbox" id="settingAutosave" checked>
       </label>
-      
       <div class="divider" style="margin: 12px 0;"></div>
-      
       <div style="padding: 10px 0;">
         <div id="languageTitle" style="font-size: 14px; font-weight: 600; margin-bottom: 10px;">Язык приложения</div>
         <label class="app-lang">
@@ -593,14 +669,7 @@
       <div class="app-modal__title" id="privacyTitle">Политика конфиденциальности</div>
       <button class="app-modal__close" onclick="closeAppModal('modalPrivacy')">×</button>
     </div>
-    <div class="app-modal__body" id="privacyText">
-      <p>Настоящая Политика конфиденциальности описывает, как приложение «Умный чек покупок» собирает, использует и защищает информацию пользователей.</p>
-      <p>1. Мы не собираем персональные данные (имя, телефон, адрес).</p>
-      <p>2. Данные о покупках и ценах хранятся в обезличенном виде и используются только для формирования средних цен.</p>
-      <p>3. Приложение использует сторонние сервисы (Firebase) для хранения базы продуктов. Эти сервисы имеют свои политики конфиденциальности.</p>
-      <p>4. Мы не передаем ваши данные третьим лицам.</p>
-      <p>5. По любым вопросам обращайтесь: umpelevnikita@yandex.ru</p>
-    </div>
+    <div class="app-modal__body" id="privacyText"></div>
   </div>
 </div>
 
@@ -610,13 +679,7 @@
       <div class="app-modal__title" id="termsTitle">Пользовательское соглашение</div>
       <button class="app-modal__close" onclick="closeAppModal('modalTerms')">×</button>
     </div>
-    <div class="app-modal__body" id="termsText">
-      <p>Используя приложение «Умный чек покупок», вы соглашаетесь с условиями:</p>
-      <p>1. Приложение предоставляется «как есть».</p>
-      <p>2. Цены являются примерными и могут не совпадать с реальными ценами в магазинах.</p>
-      <p>3. Пользователь несет ответственность за вводимые данные.</p>
-      <p>4. Мы оставляем за собой право изменять функционал приложения.</p>
-    </div>
+    <div class="app-modal__body" id="termsText"></div>
   </div>
 </div>
 
@@ -627,6 +690,35 @@
     <div class="price-edit-actions">
       <button class="price-edit-save" id="priceEditSave">Добавить в чек</button>
       <button class="price-edit-cancel" id="priceEditCancel">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<!-- === АДМИНКА: ввод пароля === -->
+<div class="admin-modal" id="adminPassModal">
+  <div class="admin-pass-box">
+    <div class="admin-pass-title">Вход в админ-панель</div>
+    <div class="admin-pass-sub">Введите пароль для доступа</div>
+    <div class="admin-pass-error" id="adminPassError">Неверный пароль</div>
+    <input type="password" class="admin-pass-input" id="adminPassInput" placeholder="Пароль" autocomplete="current-password">
+    <div class="admin-pass-actions">
+      <button class="admin-pass-cancel" onclick="closeAdminPass()">Отмена</button>
+      <button class="admin-pass-ok" onclick="submitAdminPass()">Войти</button>
+    </div>
+  </div>
+</div>
+
+<!-- === АДМИНКА: панель управления === -->
+<div class="admin-modal" id="adminPanelModal">
+  <div class="admin-box">
+    <div class="admin-head">
+      <div class="admin-title">🛠 Админ-панель</div>
+      <button class="admin-close" onclick="closeAdminPanel()">×</button>
+    </div>
+    <div class="admin-body">
+      <input type="text" class="admin-search" id="adminSearch" placeholder="Поиск по названию, бренду, вкусу...">
+      <div class="admin-stats" id="adminStats">Загрузка...</div>
+      <div class="admin-list" id="adminList"></div>
     </div>
   </div>
 </div>
@@ -653,6 +745,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+/* === АДМИНКА: пароль === */
+const ADMIN_PASSWORD = 'nikita097'; // <-- поменяйте при необходимости
+let adminClickCount = 0;
+let adminClickTimer = null;
+
 let globalCatalog = [];
 let currentCurrency = { code: 'RUB', symbol: '₽' };
 let items = [];
@@ -674,6 +771,10 @@ function listenToGlobalCatalog() {
     }));
     renderCatalog(document.getElementById('searchInput').value);
     renderQuickTags();
+    // если админка открыта — обновим список
+    if (document.getElementById('adminPanelModal').classList.contains('show')) {
+      renderAdminList();
+    }
   });
 }
 
@@ -819,7 +920,6 @@ function applyLanguage(lang) {
   document.getElementById('appTitle').textContent = t('appTitle');
   document.getElementById('btnMenuText').textContent = t('menuBtn');
   document.getElementById('btnSnapText').textContent = t('snapBtn');
-  document.getElementById('saveBtn').textContent = t('saveBtn');
   document.getElementById('receiptTitle').textContent = t('receiptTitle');
 
   document.getElementById('searchInput').placeholder = t('searchPlaceholder');
@@ -1150,28 +1250,22 @@ function formatPrice(n) {
   return `${formatted} ${currentCurrency.symbol}`;
 }
 
-/* ИСПРАВЛЕННЫЙ И НАДЕЖНЫЙ СНИМОК */
 window.takeScreenshot = function() {
   if (items.length === 0) { alert(t('emptyAlert')); return; }
   
-  // 1. Убираем любые размытия
   document.body.classList.remove('screenshot-blur');
   
   const original = document.getElementById('receiptToCapture');
-  
-  // 2. Создаем временную копию чека
   const clone = original.cloneNode(true);
   clone.id = 'tempReceiptForScreenshot';
   
-  // 3. Убираем из копии всё лишнее (поиск, каталог, кнопку свернуть)
   const catalogWrapper = clone.querySelector('.catalog-wrapper');
   if (catalogWrapper) catalogWrapper.remove();
   
-  // 4. Настраиваем стили клона
   clone.style.position = 'fixed';
-  clone.style.left = '-9999px'; // Прячем за экран
+  clone.style.left = '-9999px';
   clone.style.top = '0';
-  clone.style.width = '420px'; // Фиксируем ширину
+  clone.style.width = '420px';
   clone.style.background = '#ffffff';
   clone.style.boxShadow = 'none';
   clone.style.margin = '0';
@@ -1179,7 +1273,6 @@ window.takeScreenshot = function() {
   
   document.body.appendChild(clone);
 
-  // 5. Ждем отрисовки и делаем снимок
   setTimeout(() => {
     if (typeof html2canvas === 'undefined') {
       alert('Библиотека html2canvas не загрузилась. Проверьте интернет.');
@@ -1193,7 +1286,7 @@ window.takeScreenshot = function() {
       useCORS: true, 
       logging: false
     }).then(canvas => {
-      document.body.removeChild(clone); // Удаляем клон
+      document.body.removeChild(clone);
       
       const link = document.createElement('a');
       const dateStr = new Date().toLocaleDateString(currentLang === 'en' ? 'en-GB' : 'ru-RU').replace(/[\.\/]/g, '-');
@@ -1204,7 +1297,7 @@ window.takeScreenshot = function() {
       if (document.body.contains(clone)) document.body.removeChild(clone);
       alert('Ошибка при создании снимка: ' + err.message);
     });
-  }, 300); // Даем время на рендер
+  }, 300);
 }
 
 let blurTimer = null;
@@ -1346,8 +1439,142 @@ document.querySelectorAll('input[name="lang"]').forEach(r => {
   });
 });
 
+/* ===================================================== */
+/* === АДМИНКА: логика 3 кликов и ввода пароля ========== */
+/* ===================================================== */
+
+const appTitleEl = document.getElementById('appTitle');
+const adminPassModal = document.getElementById('adminPassModal');
+const adminPassInput = document.getElementById('adminPassInput');
+const adminPassError = document.getElementById('adminPassError');
+const adminPanelModal = document.getElementById('adminPanelModal');
+const adminListEl = document.getElementById('adminList');
+const adminStatsEl = document.getElementById('adminStats');
+const adminSearchEl = document.getElementById('adminSearch');
+
+// 3 клика по названию
+appTitleEl.addEventListener('click', () => {
+  adminClickCount++;
+  clearTimeout(adminClickTimer);
+  adminClickTimer = setTimeout(() => { adminClickCount = 0; }, 800); // сброс через 800мс
+
+  if (adminClickCount >= 3) {
+    adminClickCount = 0;
+    openAdminPass();
+  }
+});
+
+function openAdminPass() {
+  adminPassInput.value = '';
+  adminPassError.classList.remove('show');
+  adminPassModal.classList.add('show');
+  setTimeout(() => adminPassInput.focus(), 100);
+}
+
+window.closeAdminPass = function() {
+  adminPassModal.classList.remove('show');
+  adminPassInput.value = '';
+  adminPassError.classList.remove('show');
+};
+
+window.submitAdminPass = function() {
+  const val = adminPassInput.value;
+  if (val === ADMIN_PASSWORD) {
+    closeAdminPass();
+    openAdminPanel();
+  } else {
+    adminPassError.classList.add('show');
+    adminPassInput.value = '';
+    adminPassInput.focus();
+  }
+};
+
+adminPassInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') submitAdminPass();
+  if (e.key === 'Escape') closeAdminPass();
+});
+
+adminPassModal.addEventListener('click', (e) => {
+  if (e.target === adminPassModal) closeAdminPass();
+});
+
+function openAdminPanel() {
+  adminPanelModal.classList.add('show');
+  adminSearchEl.value = '';
+  renderAdminList();
+  setTimeout(() => adminSearchEl.focus(), 100);
+}
+
+window.closeAdminPanel = function() {
+  adminPanelModal.classList.remove('show');
+};
+
+adminPanelModal.addEventListener('click', (e) => {
+  if (e.target === adminPanelModal) closeAdminPanel();
+});
+
+adminSearchEl.addEventListener('input', () => renderAdminList());
+
+function renderAdminList() {
+  const q = adminSearchEl.value.trim().toLowerCase();
+
+  // Сортируем по count (убывание), чтобы популярные сверху
+  const sorted = [...globalCatalog].sort((a, b) => b.count - a.count);
+
+  const filtered = sorted.filter(item => {
+    const str = (item.name + ' ' + (item.name_en || '') + ' ' + (item.brand || '') + ' ' + (item.flavor || '')).toLowerCase();
+    return str.includes(q);
+  });
+
+  adminStatsEl.textContent = `Всего в базе: ${globalCatalog.length} · Показано: ${filtered.length}`;
+
+  adminListEl.innerHTML = '';
+
+  if (filtered.length === 0) {
+    adminListEl.innerHTML = `<div class="admin-empty">${q ? 'Ничего не найдено' : 'База пуста'}</div>`;
+    return;
+  }
+
+  filtered.forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'admin-item';
+
+    const detailsParts = [];
+    if (item.brand) detailsParts.push(`Бренд: ${item.brand}`);
+    if (item.flavor) detailsParts.push(`Вкус: ${item.flavor}`);
+    if (item.name_en && item.name_en !== item.name) detailsParts.push(`EN: ${item.name_en}`);
+    detailsParts.push(`Добавлений: ${item.count}`);
+
+    row.innerHTML = `
+      <div class="admin-item-info">
+        <div class="admin-item-name">${item.name}</div>
+        <div class="admin-item-details">${detailsParts.join(' · ')}</div>
+      </div>
+      <div class="admin-item-price">${formatPrice(item.price)}</div>
+      <button class="admin-item-del" title="Удалить из базы">×</button>
+    `;
+
+    const delBtn = row.querySelector('.admin-item-del');
+    delBtn.onclick = () => {
+      const ok = confirm(`Удалить «${item.name}» из базы?\nЭто действие необратимо.`);
+      if (!ok) return;
+      remove(ref(db, 'catalog/' + item.id))
+        .then(() => {
+          // список обновится автоматически через onValue
+        })
+        .catch(err => {
+          alert('Ошибка удаления: ' + err.message);
+        });
+    };
+
+    adminListEl.appendChild(row);
+  });
+}
+
+/* ===================================================== */
+
 listenToGlobalCatalog();
 applyLanguage(currentLang);
 </script>
 </body>
-</html>
+           </html>
